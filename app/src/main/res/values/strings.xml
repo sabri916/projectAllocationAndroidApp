@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">DrawerBottomNavTabsMenu</string>
+    <string name="drawer_open_tag">drawer_open</string>
+    <string name="drawer_close_tag">drawer_close</string>
+</resources>
