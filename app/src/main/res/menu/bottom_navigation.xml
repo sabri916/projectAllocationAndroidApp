@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/proposals_menu_item"
+        android:title="Proposals"
+        android:icon="@android:drawable/ic_menu_mylocation"
+        />
+    <item android:id="@+id/discipals_menu_item"
+        android:title="Discipals"
+        android:icon="@android:drawable/ic_menu_mylocation"
+        />
+    <item android:id="@+id/mentors_menu_item"
+        android:title="Mentors"
+        android:icon="@android:drawable/ic_menu_mylocation"
+        />
+    <item android:id="@+id/my_account_menu_item"
+        android:title="Account"
+        android:icon="@android:drawable/ic_menu_mylocation"
+        />
+</menu>

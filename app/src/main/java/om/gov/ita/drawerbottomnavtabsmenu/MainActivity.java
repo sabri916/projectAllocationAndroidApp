@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private CoordinatorLayout coordinatorLayout;
 
+    private ProposalsListFragment proposalsListFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +78,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //first Fragment
+        proposalsListFragment = new ProposalsListFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.coordinator_layout_main_container,proposalsListFragment).commit();
     }
 
     @Override
