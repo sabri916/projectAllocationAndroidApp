@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
 import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnMenuTabClickListener;
 import com.roughike.bottombar.OnMenuTabSelectedListener;
 
 public class MainActivity extends AppCompatActivity {
@@ -47,13 +48,13 @@ public class MainActivity extends AppCompatActivity {
         actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,mainToolbar,
                 R.string.drawer_open_tag,R.string.drawer_close_tag);
 
-        //bottom Nav
+        //Bottombar
         bottomBar = BottomBar.attach(this,savedInstanceState);
         bottomBar.useFixedMode();
-        bottomBar.setItemsFromMenu(R.menu.bottom_navigation, new OnMenuTabSelectedListener() {
+        bottomBar.setItemsFromMenu(R.menu.bottom_navigation, new OnMenuTabClickListener() {
             @Override
-            public void onMenuItemSelected(@IdRes int menuItemId) {
-                switch(menuItemId){
+            public void onMenuTabSelected(@IdRes int menuItemId) {
+                switch (menuItemId) {
                     case R.id.proposals_menu_item:
                         Snackbar.make(coordinatorLayout, "Proposals", Snackbar.LENGTH_SHORT).show();
                         break;
@@ -61,12 +62,17 @@ public class MainActivity extends AppCompatActivity {
                         Snackbar.make(coordinatorLayout, "Disciples", Snackbar.LENGTH_SHORT).show();
                         break;
                     case R.id.mentors_menu_item:
-                        Snackbar.make(coordinatorLayout,"Mentors",Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(coordinatorLayout, "Mentors", Snackbar.LENGTH_SHORT).show();
                         break;
                     case R.id.my_account_menu_item:
-                        Snackbar.make(coordinatorLayout,"My Account",Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(coordinatorLayout, "My Account", Snackbar.LENGTH_SHORT).show();
                         break;
                 }
+            }
+
+            @Override
+            public void onMenuTabReSelected(@IdRes int menuItemId) {
+
             }
         });
 
