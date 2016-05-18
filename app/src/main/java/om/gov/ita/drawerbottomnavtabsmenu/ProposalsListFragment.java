@@ -22,7 +22,7 @@ public class ProposalsListFragment extends Fragment {
 
     private ArrayList<Proposal> dummyProposals;
 
-    private String[] titles = {"Yellow", "Blue", "Green", "Red", "Orange",
+    private String[] titles = {"Project Management Android Application", "Blue", "Green", "Red", "Orange",
             "Yellow", "Blue", "Green", "Red", "Orange",
             "Yellow", "Blue", "Green", "Red", "Orange",
             "Yellow", "Blue", "Green", "Red", "Orange",
@@ -55,11 +55,11 @@ public class ProposalsListFragment extends Fragment {
         ArrayList<Proposal> dummyProposals = new ArrayList<Proposal>();
         for(int i=0; i<titles.length ; i++){
             if(i%2 == 0){
-                dummyProposals.add(new Proposal(titles[i],"Proposal Description Proposal Description Proposal Description Proposal Description Proposal Description Proposal Description Proposal Description Proposal Description Proposal Description ",true));
+                dummyProposals.add(new Proposal(titles[i],"Sabri K","Proposal Description Proposal Description Proposal Description Proposal Description Proposal Description Proposal Description Proposal Description Proposal Description Proposal Description ",true));
 
             }
             else{
-                dummyProposals.add(new Proposal(titles[i],"Proposal Description Proposal Description Proposal Description Proposal Description Proposal Description Proposal Description Proposal Description Proposal Description Proposal Description ",false));
+                dummyProposals.add(new Proposal(titles[i],"Sabri K","Proposal Description Proposal Description Proposal Description Proposal Description Proposal Description Proposal Description Proposal Description Proposal Description Proposal Description ",false));
             }
         }
         return dummyProposals;

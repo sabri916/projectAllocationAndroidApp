@@ -27,14 +27,14 @@ public class ProposalListAdapter extends RecyclerView.Adapter<ProposalListAdapte
     public ProposalViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View rootView = inflater.inflate(R.layout.proposal_card,parent,false);
-        ProposalViewHolder viewHolder = new ProposalViewHolder(rootView);
-        return viewHolder;
+        return new ProposalViewHolder(rootView);
     }
 
     @Override
     public void onBindViewHolder(ProposalViewHolder holder, int position) {
         Proposal proposal = proposalArrayList.get(position);
         holder.getTitleTextView().setText(proposal.getTitle());
+        holder.getAuthorTextView().setText(proposal.getAuthor());
         holder.getDescriptionTextView().setText(proposal.getDescription());
 
         if(proposal.isFavourite()){
@@ -52,12 +52,14 @@ public class ProposalListAdapter extends RecyclerView.Adapter<ProposalListAdapte
     static public class ProposalViewHolder extends RecyclerView.ViewHolder {
 
         private TextView titleTextView;
+        private TextView authorTextView;
         private TextView descriptionTextView;
         private ImageView favouriteStarImageView;
 
         public ProposalViewHolder(View itemView) {
             super(itemView);
             titleTextView = (TextView) itemView.findViewById(R.id.tv_proposal_title_card);
+            authorTextView = (TextView) itemView.findViewById(R.id.tv_proposal_author_card);
             descriptionTextView = (TextView) itemView.findViewById(R.id.tv_proposal_description_card);
             favouriteStarImageView = (ImageView) itemView.findViewById(R.id.iv_favourite_star);
         }
@@ -72,6 +74,10 @@ public class ProposalListAdapter extends RecyclerView.Adapter<ProposalListAdapte
 
         public ImageView getFavouriteStarImageView() {
             return favouriteStarImageView;
+        }
+
+        public TextView getAuthorTextView() {
+            return authorTextView;
         }
     }
 }

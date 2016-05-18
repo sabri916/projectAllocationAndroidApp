@@ -5,16 +5,28 @@ package om.gov.ita.drawerbottomnavtabsmenu;
  */
 public class Proposal {
     private String title;
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    private String author;
     private String description;
     private boolean isFavourite;
 
-    public Proposal(String title, boolean isFavourite) {
+    public Proposal(String title, String author, boolean isFavourite) {
         this.title = title;
+        this.author = author;
         this.isFavourite = isFavourite;
     }
 
-    public Proposal(String title, String description, boolean isFavourite) {
+    public Proposal(String title, String author, String description, boolean isFavourite) {
         this.title = title;
+        this.author = author;
         this.description = description;
         this.isFavourite = isFavourite;
     }
