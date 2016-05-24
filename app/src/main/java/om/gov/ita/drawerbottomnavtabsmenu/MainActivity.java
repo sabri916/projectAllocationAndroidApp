@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private CoordinatorLayout coordinatorLayout;
 
     private ProposalsListFragment proposalsListFragment;
-    private DiscipleListFragment discipleListFragment;
+    private PeopleTabbedListFragment peopleTabbedListFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Ideas");
 
         //fragments init
-        discipleListFragment = new DiscipleListFragment();
+        peopleTabbedListFragment = new PeopleTabbedListFragment();
 
         //Bottombar
         bottomBar = BottomBar.attach(this,savedInstanceState);
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.discipals_menu_item:
                         getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.coordinator_layout_main_container,discipleListFragment).commit();
+                                .replace(R.id.coordinator_layout_main_container,peopleTabbedListFragment).commit();
                         getSupportActionBar().setTitle("Disciples");
                         break;
                     case R.id.mentors_menu_item:
