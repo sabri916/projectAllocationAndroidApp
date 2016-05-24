@@ -10,6 +10,7 @@ public class Person {
     private String phoneNumber;
     private String interests;
     private String bio;
+    private Object avatar;
 
     public Person(String name, String speciality) {
         this.name = name;
@@ -62,5 +63,13 @@ public class Person {
 
     public void setBio(String bio) {
         this.bio = bio;
+    }
+
+    public Object getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(Object avatar) {
+        this.avatar = avatar;
     }
 }

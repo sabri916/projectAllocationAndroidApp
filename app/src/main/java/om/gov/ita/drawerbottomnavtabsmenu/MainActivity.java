@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private CoordinatorLayout coordinatorLayout;
 
     private ProposalsListFragment proposalsListFragment;
+    private DiscipleListFragment discipleListFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,15 @@ public class MainActivity extends AppCompatActivity {
         actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,mainToolbar,
                 R.string.drawer_open_tag,R.string.drawer_close_tag);
 
+        //first Fragment
+        proposalsListFragment = new ProposalsListFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.coordinator_layout_main_container,proposalsListFragment).commit();
+        getSupportActionBar().setTitle("Ideas");
+
+        //fragments init
+        discipleListFragment = new DiscipleListFragment();
+
         //Bottombar
         bottomBar = BottomBar.attach(this,savedInstanceState);
         bottomBar.useFixedMode();
@@ -58,10 +68,14 @@ public class MainActivity extends AppCompatActivity {
             public void onMenuTabSelected(@IdRes int menuItemId) {
                 switch (menuItemId) {
                     case R.id.proposals_menu_item:
-                        Snackbar.make(coordinatorLayout, "Proposals", Snackbar.LENGTH_SHORT).show();
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.coordinator_layout_main_container,proposalsListFragment).commit();
+                        getSupportActionBar().setTitle("Ideas");
                         break;
                     case R.id.discipals_menu_item:
-                        Snackbar.make(coordinatorLayout, "Disciples", Snackbar.LENGTH_SHORT).show();
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.coordinator_layout_main_container,discipleListFragment).commit();
+                        getSupportActionBar().setTitle("Disciples");
                         break;
                     case R.id.mentors_menu_item:
                         Snackbar.make(coordinatorLayout, "Mentors", Snackbar.LENGTH_SHORT).show();
@@ -77,11 +91,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-        //first Fragment
-        proposalsListFragment = new ProposalsListFragment();
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.coordinator_layout_main_container,proposalsListFragment).commit();
     }
 
     @Override
