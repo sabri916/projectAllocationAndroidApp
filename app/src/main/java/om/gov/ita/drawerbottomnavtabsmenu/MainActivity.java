@@ -53,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
 
         //first Fragment
         proposalsListFragment = new ProposalsListFragment();
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.coordinator_layout_main_container,proposalsListFragment).commit();
+//        getSupportFragmentManager().beginTransaction()
+//                .replace(R.id.coordinator_layout_main_container,proposalsListFragment).commit();
         getSupportActionBar().setTitle("Ideas");
 
         //fragments init

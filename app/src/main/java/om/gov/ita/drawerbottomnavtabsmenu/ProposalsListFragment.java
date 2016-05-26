@@ -22,44 +22,21 @@ public class ProposalsListFragment extends Fragment {
 
     private ArrayList<Proposal> dummyProposals;
 
-    private String[] titles = {"Project Management Android Application", "Blue", "Green", "Red", "Orange",
-            "Yellow", "Blue", "Green", "Red", "Orange",
-            "Yellow", "Blue", "Green", "Red", "Orange",
-            "Yellow", "Blue", "Green", "Red", "Orange",
-            "Yellow", "Blue", "Green", "Red", "Orange",
-            "Yellow", "Blue", "Green", "Red"};
-
     public ProposalsListFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        dummyProposals = createDummyArrayList();
+        dummyProposals = DummyData.createDummyProposals();
         recyclerView = new RecyclerView(getContext());
-        layoutManager = new GridLayoutManager(getActivity(),1);
+        layoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(new ProposalListAdapter(getActivity(),dummyProposals));
+        recyclerView.setAdapter(new ProposalListAdapter(getActivity(), dummyProposals));
 
         // Inflate the layout for this fragment
         return recyclerView;
     }
-
-    private ArrayList<Proposal> createDummyArrayList() {
-        ArrayList<Proposal> dummyProposals = new ArrayList<Proposal>();
-        for(int i=0; i<titles.length ; i++){
-            if(i%2 == 0){
-                dummyProposals.add(new Proposal(titles[i],"Sabri K","Proposal Description Proposal Description Proposal Description Proposal Description Proposal Description Proposal Description Proposal Description Proposal Description Proposal Description ",true));
-
-            }
-            else{
-                dummyProposals.add(new Proposal(titles[i],"Sabri K","Proposal Description Proposal Description Proposal Description Proposal Description Proposal Description Proposal Description Proposal Description Proposal Description Proposal Description ",false));
-            }
-        }
-        return dummyProposals;
-    }
-
 }
