@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         peopleTabbedListFragment = new PeopleTabbedListFragment();
 
         //Bottombar
-        bottomBar = BottomBar.attach(this,savedInstanceState);
+        bottomBar = BottomBar.attach(findViewById(R.id.coordinator_layout_main_container),savedInstanceState);
         bottomBar.useFixedMode();
         bottomBar.setItemsFromMenu(R.menu.bottom_navigation, new OnMenuTabClickListener() {
             @Override
