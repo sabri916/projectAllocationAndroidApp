@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ProposalsListFragment proposalsListFragment;
     private PeopleTabbedListFragment peopleTabbedListFragment;
+    private TeamListFragment teamListFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
         //fragments init
         peopleTabbedListFragment = new PeopleTabbedListFragment();
+        teamListFragment = new TeamListFragment();
 
         //Bottombar
         bottomBar = BottomBar.attach(findViewById(R.id.coordinator_layout_main_container),savedInstanceState);
@@ -77,8 +79,10 @@ public class MainActivity extends AppCompatActivity {
                                 .replace(R.id.coordinator_layout_main_container,peopleTabbedListFragment).commit();
                         getSupportActionBar().setTitle("People");
                         break;
-                    case R.id.mentors_menu_item:
-                        Snackbar.make(coordinatorLayout, "Teams", Snackbar.LENGTH_SHORT).show();
+                    case R.id.teams_menu_item:
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.coordinator_layout_main_container,teamListFragment).commit();
+                        getSupportActionBar().setTitle("Teams");
                         break;
                     case R.id.my_account_menu_item:
                         Snackbar.make(coordinatorLayout, "My Account", Snackbar.LENGTH_SHORT).show();

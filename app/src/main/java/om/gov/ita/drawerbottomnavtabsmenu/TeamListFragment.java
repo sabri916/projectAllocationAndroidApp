@@ -2,30 +2,27 @@ package om.gov.ita.drawerbottomnavtabsmenu;
 
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
-
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DiscipleListFragment extends Fragment {
+public class TeamListFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
 
-    private ArrayList<Person> dummyPersons;
+    private ArrayList<Team> dummyTeams;
 
-
-    public DiscipleListFragment() {
+    public TeamListFragment() {
         // Required empty public constructor
     }
 
@@ -33,14 +30,12 @@ public class DiscipleListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
-        dummyPersons = DummyData.createDummyPersons(50);
-        layoutManager = new GridLayoutManager(getActivity(),1);
+        dummyTeams = DummyData.createDummyTeams(15);
         recyclerView = new RecyclerView(getContext());
+        layoutManager = new GridLayoutManager(getActivity(),1);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(new PersonsListAdapter(getActivity(),dummyPersons));
-
+        recyclerView.setAdapter(new TeamListAdapter(getActivity(),dummyTeams));
         return recyclerView;
     }
 }
