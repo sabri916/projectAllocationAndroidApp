@@ -34,7 +34,8 @@ public class DiscipleListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        dummyPersons = createDummyArrayList();
+
+        dummyPersons = DummyData.createDummyPersons(50);
         layoutManager = new GridLayoutManager(getActivity(),1);
         recyclerView = new RecyclerView(getContext());
         recyclerView.setLayoutManager(layoutManager);
