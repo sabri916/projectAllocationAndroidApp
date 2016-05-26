@@ -34,7 +34,7 @@ public class DiscipleListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        dummyPersons = createDummyArrayList();
+        dummyPersons = DummyData.createDummyPersons();
         layoutManager = new GridLayoutManager(getActivity(),1);
         recyclerView = new RecyclerView(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -42,19 +42,4 @@ public class DiscipleListFragment extends Fragment {
 
         return recyclerView;
     }
-
-    private ArrayList<Person> createDummyArrayList() {
-        ArrayList<Person> dummyPersons = new ArrayList<Person>();
-        for(int i=0; i<20 ; i++){
-            if(i%2 == 0){
-                dummyPersons.add(new Person("Sabri K","Computer Science"));
-
-            }
-            else{
-                dummyPersons.add(new Person("Ian Grimstead","Discrete Maths"));
-            }
-        }
-        return dummyPersons;
-    }
-
 }
