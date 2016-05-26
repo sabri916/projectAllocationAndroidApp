@@ -34,16 +34,13 @@ public class DiscipleListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         dummyPersons = createDummyArrayList();
-
-        View rootView = inflater.inflate(R.layout.fragment_disciple_list,container,false);
         layoutManager = new GridLayoutManager(getActivity(),1);
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_disciple_list);
+        recyclerView = new RecyclerView(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(new PersonsListAdapter(getActivity(),dummyPersons));
 
-        return rootView;
+        return recyclerView;
     }
 
     private ArrayList<Person> createDummyArrayList() {

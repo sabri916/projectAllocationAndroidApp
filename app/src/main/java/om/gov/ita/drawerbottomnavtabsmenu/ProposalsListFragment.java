@@ -39,16 +39,13 @@ public class ProposalsListFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         dummyProposals = createDummyArrayList();
-
-        View rootView = inflater.inflate(R.layout.fragment_proposal_list,container,false);
+        recyclerView = new RecyclerView(getContext());
         layoutManager = new GridLayoutManager(getActivity(),1);
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_proposals_list);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(new ProposalListAdapter(getActivity(),dummyProposals));
 
-
         // Inflate the layout for this fragment
-        return rootView;
+        return recyclerView;
     }
 
     private ArrayList<Proposal> createDummyArrayList() {

@@ -28,7 +28,7 @@ public class PeopleTabbedListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_people_tabbed_list,container,false);
+        View rootView = inflater.inflate(R.layout.fragment_tabbed_view_pager,container,false);
         tabLayout = (TabLayout) rootView.findViewById(R.id.tab_layout_people_list);
         viewPager = (ViewPager) rootView.findViewById(R.id.vp_people_list);
 
