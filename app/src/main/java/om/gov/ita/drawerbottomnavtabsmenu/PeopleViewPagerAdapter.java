@@ -12,10 +12,12 @@ import java.util.ArrayList;
 public class PeopleViewPagerAdapter extends FragmentPagerAdapter {
 
     ArrayList<Fragment> fragmentArray;
+    String[] tabTitles;
 
-    public PeopleViewPagerAdapter(FragmentManager fm) {
+    public PeopleViewPagerAdapter(FragmentManager fm, String[] tabTitles) {
         super(fm);
         fragmentArray = new ArrayList<Fragment>();
+        this.tabTitles = tabTitles;
     }
 
     public void addFragment(Fragment f){
@@ -34,6 +36,6 @@ public class PeopleViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return "yellow";
+        return tabTitles[position];
     }
 }

@@ -31,8 +31,9 @@ public class PeopleTabbedListFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_tabbed_view_pager,container,false);
         tabLayout = (TabLayout) rootView.findViewById(R.id.tab_layout_people_list);
         viewPager = (ViewPager) rootView.findViewById(R.id.vp_people_list);
+        String[] tabTitles = {"Disciples", "Mentors"};
 
-        peopleViewPagerAdapter = new PeopleViewPagerAdapter(getChildFragmentManager());
+        peopleViewPagerAdapter = new PeopleViewPagerAdapter(getChildFragmentManager(),tabTitles);
         peopleViewPagerAdapter.addFragment(new DiscipleListFragment());
         peopleViewPagerAdapter.addFragment(new DiscipleListFragment());
 

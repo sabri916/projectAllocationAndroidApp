@@ -75,10 +75,10 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.discipals_menu_item:
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.coordinator_layout_main_container,peopleTabbedListFragment).commit();
-                        getSupportActionBar().setTitle("Disciples");
+                        getSupportActionBar().setTitle("People");
                         break;
                     case R.id.mentors_menu_item:
-                        Snackbar.make(coordinatorLayout, "Mentors", Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(coordinatorLayout, "Teams", Snackbar.LENGTH_SHORT).show();
                         break;
                     case R.id.my_account_menu_item:
                         Snackbar.make(coordinatorLayout, "My Account", Snackbar.LENGTH_SHORT).show();
