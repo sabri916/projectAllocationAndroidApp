@@ -35,4 +35,4 @@ captures/
 *.iml
 .idea/workspace.xml
 .idea/*.xml
-
+.idea//libraries/*
