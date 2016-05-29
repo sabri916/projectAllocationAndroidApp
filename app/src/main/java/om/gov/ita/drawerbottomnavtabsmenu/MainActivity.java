@@ -52,15 +52,15 @@ public class MainActivity extends AppCompatActivity {
         actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,mainToolbar,
                 R.string.drawer_open_tag,R.string.drawer_close_tag);
 
-        //first Fragment
-        proposalsListFragment = new ProposalsListFragment();
-//        getSupportFragmentManager().beginTransaction()
-//                .replace(R.id.coordinator_layout_main_container,proposalsListFragment).commit();
-        getSupportActionBar().setTitle("Ideas");
-
         //fragments init
         peopleTabbedListFragment = new PeopleTabbedListFragment();
         teamListFragment = new TeamListFragment();
+
+        //first Fragment
+        proposalsListFragment = new ProposalsListFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.coordinator_layout_main_container,proposalsListFragment).commit();
+        getSupportActionBar().setTitle("Ideas");
 
         //Bottombar
         bottomBar = BottomBar.attach(findViewById(R.id.coordinator_layout_main_container),savedInstanceState);
