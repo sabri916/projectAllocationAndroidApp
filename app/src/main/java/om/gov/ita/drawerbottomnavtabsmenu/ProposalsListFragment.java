@@ -22,7 +22,7 @@ public class ProposalsListFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private FloatingActionButton addProposalFab;
+    //private FloatingActionButton addProposalFab;
 
     private ArrayList<Proposal> dummyProposals;
 
@@ -43,13 +43,13 @@ public class ProposalsListFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(new ProposalListAdapter(getActivity(), dummyProposals));
 
-        addProposalFab = (FloatingActionButton) rootView.findViewById(R.id.id_fab_add_propoal);
-        addProposalFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Snackbar.make(rootView, "Fab Action", Snackbar.LENGTH_SHORT).show();
-            }
-        });
+//        addProposalFab = (FloatingActionButton) rootView.findViewById(R.id.id_fab_add_propoal);
+//        addProposalFab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Snackbar.make(rootView, "Fab Action", Snackbar.LENGTH_SHORT).show();
+//            }
+//        });
 
 
         // Inflate the layout for this fragment

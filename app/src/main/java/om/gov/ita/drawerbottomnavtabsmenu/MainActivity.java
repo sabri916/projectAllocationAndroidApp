@@ -59,16 +59,16 @@ public class MainActivity extends AppCompatActivity {
         //first Fragment
         proposalsListFragment = new ProposalsListFragment();
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.coordinator_layout_main_container,proposalsListFragment).commit();
+                .replace(R.id.frame_layout_content_container,proposalsListFragment).commit();
         getSupportActionBar().setTitle("Ideas");
 
         //Bottombar
-        bottomBar = BottomBar.attach(findViewById(R.id.coordinator_layout_main_container),savedInstanceState);
+        bottomBar = BottomBar.attachShy(coordinatorLayout,findViewById(R.id.nested_scroll_view),savedInstanceState);
         bottomBar.useFixedMode();
         bottomBar.setItemsFromMenu(R.menu.bottom_navigation, new OnMenuTabClickListener() {
             @Override
             public void onMenuTabSelected(@IdRes int menuItemId) {
-                switch (menuItemId) {
+                /*switch (menuItemId) {
                     case R.id.proposals_menu_item:
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.coordinator_layout_main_container,proposalsListFragment).commit();
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.my_account_menu_item:
                         Snackbar.make(coordinatorLayout, "My Account", Snackbar.LENGTH_SHORT).show();
                         break;
-                }
+                }*/
             }
 
             @Override

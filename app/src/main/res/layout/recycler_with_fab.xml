@@ -19,8 +19,8 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:layout_margin="16dp"
+        android:elevation="6dp"
         android:src="@android:drawable/ic_input_add"
-        app:layout_anchor="@id/rv_list"
-        app:layout_anchorGravity="bottom|end|right"
+        app:layout_anchorGravity="right"
         app:layout_behavior="om.gov.ita.drawerbottomnavtabsmenu.FabBehaviour"/>
 </android.support.design.widget.CoordinatorLayout>
