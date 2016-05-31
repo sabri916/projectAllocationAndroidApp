@@ -16,7 +16,7 @@ public class CreateProposalDialogActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_proposal_dialog);
 
         createProposalToolbar = (Toolbar) findViewById(R.id.toolbar_main);
-        createProposalToolbar.setTitle("New Idea");
+        createProposalToolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);
         setSupportActionBar(createProposalToolbar);
     }
 

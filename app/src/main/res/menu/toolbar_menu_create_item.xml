@@ -3,13 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/save_create_item_toolbar"
-        android:title="Save"
+        android:title="Create"
         app:showAsAction="always"/>
-
-    <item
-        android:id="@+id/cancel_create_item_toolbar"
-        android:title="Close"
-        android:icon="@android:drawable/ic_menu_close_clear_cancel"
-        app:showAsAction="always"
-        />
 </menu>

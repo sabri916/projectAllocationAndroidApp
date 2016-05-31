@@ -15,7 +15,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CreateProposalDialogActivity"></activity>
+        <activity
+            android:name=".CreateProposalDialogActivity"
+            android:label="New Idea"
+            android:parentActivityName=".MainActivity"
+            />
     </application>
 
 </manifest>

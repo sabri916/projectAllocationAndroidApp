@@ -14,17 +14,37 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Button"
-            android:id="@+id/button"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Bloody title"/>
+            android:id="@+id/et_project_title"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:hint="Project Title"
+            android:maxLines="1"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/et_project_title"
+            android:id="@+id/et_project_description"
+            android:hint="Short Project Description"
+            android:minLines="3"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/et_project_description"
+            android:id="@+id/et_project_tags"
+            android:hint="Tags"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/et_project_tags"
+            android:id="@+id/btn_upload_project_body"
+            android:text="Upload Detailed Project Description"/>
     </RelativeLayout>
 </LinearLayout>
