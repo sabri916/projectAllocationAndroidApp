@@ -1,6 +1,5 @@
 package om.gov.ita.drawerbottomnavtabsmenu;
 
-import android.os.PersistableBundle;
 import android.support.annotation.IdRes;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
@@ -11,11 +10,9 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.widget.Toast;
 
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnMenuTabClickListener;
-import com.roughike.bottombar.OnMenuTabSelectedListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Coordinator Layout
-        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator_layout_main_container);
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator_layout_main_fragment_container);
 
         //drawer
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -59,11 +56,11 @@ public class MainActivity extends AppCompatActivity {
         //first Fragment
         proposalsListFragment = new ProposalsListFragment();
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.coordinator_layout_main_container,proposalsListFragment).commit();
+                .replace(R.id.coordinator_layout_main_fragment_container,proposalsListFragment).commit();
         getSupportActionBar().setTitle("Ideas");
 
         //Bottombar
-        bottomBar = BottomBar.attach(findViewById(R.id.coordinator_layout_main_container),savedInstanceState);
+        bottomBar = BottomBar.attach(findViewById(R.id.coordinator_layout_main_fragment_container),savedInstanceState);
         bottomBar.useFixedMode();
         bottomBar.setItemsFromMenu(R.menu.bottom_navigation, new OnMenuTabClickListener() {
             @Override
@@ -71,17 +68,17 @@ public class MainActivity extends AppCompatActivity {
                 switch (menuItemId) {
                     case R.id.proposals_menu_item:
                         getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.coordinator_layout_main_container,proposalsListFragment).commit();
+                                .replace(R.id.coordinator_layout_main_fragment_container,proposalsListFragment).commit();
                         getSupportActionBar().setTitle("Ideas");
                         break;
                     case R.id.discipals_menu_item:
                         getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.coordinator_layout_main_container,peopleTabbedListFragment).commit();
+                                .replace(R.id.coordinator_layout_main_fragment_container,peopleTabbedListFragment).commit();
                         getSupportActionBar().setTitle("People");
                         break;
                     case R.id.teams_menu_item:
                         getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.coordinator_layout_main_container,teamListFragment).commit();
+                                .replace(R.id.coordinator_layout_main_fragment_container,teamListFragment).commit();
                         getSupportActionBar().setTitle("Teams");
                         break;
                     case R.id.my_account_menu_item:
