@@ -1,10 +1,9 @@
 package om.gov.ita.drawerbottomnavtabsmenu;
 
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -47,7 +46,9 @@ public class ProposalsListFragment extends Fragment {
         addProposalFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(rootView, "Fab Action", Snackbar.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), CreateProposalDialogActivity.class);
+                startActivity(intent);
+                //Snackbar.make(rootView, "Fab Action", Snackbar.LENGTH_SHORT).show();
             }
         });
 
