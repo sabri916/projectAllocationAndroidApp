@@ -40,8 +40,8 @@ public class CreateProposalDialogActivity extends BaseDialogActivity {
     }
 
     @Override
-    void setLayout() {
-        super.layout = R.layout.activity_create_proposal_dialog;
+    int getLayoutResourceId() {
+        return R.layout.activity_create_proposal_dialog;
     }
 
     @Override

@@ -11,17 +11,16 @@ import android.view.View;
 public abstract class BaseDialogActivity extends AppCompatActivity {
 
     private Toolbar createProposalToolbar;
-    protected int layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setLayout();
-        setContentView(layout);
+        setContentView(getLayoutResourceId());
         createProposalToolbar = (Toolbar) findViewById(R.id.toolbar_main);
         createProposalToolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);
         setSupportActionBar(createProposalToolbar);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -34,15 +33,17 @@ public abstract class BaseDialogActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        dialogueAction(item);
+        if(item.getItemId() == R.id.save_create_item_toolbar) {
+            dialogueAction(item);
+        }
         return super.onOptionsItemSelected(item);
     }
 
     /* Action of the save Button*/
     abstract void dialogueAction(MenuItem item);
 
-    /*setContentView of the dialogue*/
-    abstract void setLayout();
+    /*return layout resource id*/
+    abstract int getLayoutResourceId();
 
     /*Set properties of the Save Button*/
     abstract void setSaveText(MenuItem menuItem);
