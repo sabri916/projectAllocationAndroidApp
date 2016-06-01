@@ -21,6 +21,6 @@ public class CreateProposalDialogActivity extends BaseDialogActivity {
 
     @Override
     void setSaveText(MenuItem menuItem) {
-        menuItem.setTitle("Create");
+        menuItem.setTitle(R.string.dialogue_create_item);
     }
 }
