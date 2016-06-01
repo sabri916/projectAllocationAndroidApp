@@ -1,10 +1,34 @@
 package om.gov.ita.drawerbottomnavtabsmenu;
 
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * Created by training-4 on 5/17/16.
  */
 public class Proposal {
     private String title;
+    private String author;
+    private String description;
+    private long dateTime;
+    private String url;
+    private boolean isFavourite;
+
+    public long getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(long dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public String getAuthor() {
         return author;
@@ -14,13 +38,18 @@ public class Proposal {
         this.author = author;
     }
 
-    private String author;
-    private String description;
-    private boolean isFavourite;
-
     public Proposal(String title, String author, boolean isFavourite) {
         this.title = title;
         this.author = author;
+        this.isFavourite = isFavourite;
+    }
+
+    public Proposal(String title, String author, String description, long dateTime, String url, boolean isFavourite) {
+        this.title = title;
+        this.author = author;
+        this.description = description;
+        this.dateTime = dateTime;
+        this.url = url;
         this.isFavourite = isFavourite;
     }
 

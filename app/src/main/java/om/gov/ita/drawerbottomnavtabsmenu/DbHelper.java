@@ -12,14 +12,22 @@ import android.util.Log;
 public class DbHelper extends SQLiteOpenHelper {
     final static private String DB_NAME = "project_allocation.sqlite";
     final static private int DB_VERSION = 1;
-    public Context cxt;
 
-    //Other Table
+    private static DbHelper instsance;
 
+    public Context context;
 
-    public DbHelper(Context cxt) {
-        super(cxt, DB_NAME, null, DB_VERSION);
-        this.cxt = cxt;
+    private DbHelper(Context context) {
+        super(context, DB_NAME, null, DB_VERSION);
+        this.context = context;
+    }
+
+    public static DbHelper getInstance(Context context){
+        if(instsance == null){
+            instsance = new DbHelper(context);
+            return instsance;
+        }
+        return instsance;
     }
 
     @Override
@@ -36,4 +44,5 @@ public class DbHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
+
 }

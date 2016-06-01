@@ -6,16 +6,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 public abstract class BaseDialogActivity extends AppCompatActivity {
 
     private Toolbar createProposalToolbar;
+    protected int layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setLayout();
+        setContentView(layout);
         createProposalToolbar = (Toolbar) findViewById(R.id.toolbar_main);
         createProposalToolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);
         setSupportActionBar(createProposalToolbar);
@@ -32,12 +34,12 @@ public abstract class BaseDialogActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        dialogueAction();
+        dialogueAction(item);
         return super.onOptionsItemSelected(item);
     }
 
     /* Action of the save Button*/
-    abstract void dialogueAction();
+    abstract void dialogueAction(MenuItem item);
 
     /*setContentView of the dialogue*/
     abstract void setLayout();
