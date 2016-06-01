@@ -3,6 +3,5 @@
     <string name="drawer_open_tag">drawer_open</string>
     <string name="drawer_close_tag">drawer_close</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dialogue_create_item">Create</string>
 </resources>

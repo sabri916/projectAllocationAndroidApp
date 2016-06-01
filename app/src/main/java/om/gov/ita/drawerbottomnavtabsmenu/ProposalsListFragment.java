@@ -48,7 +48,6 @@ public class ProposalsListFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), CreateProposalDialogActivity.class);
                 startActivity(intent);
-                //Snackbar.make(rootView, "Fab Action", Snackbar.LENGTH_SHORT).show();
             }
         });
 
