@@ -44,6 +44,7 @@ public class DbHelper extends SQLiteOpenHelper {
         try {
             db.execSQL(IdeasDbRepo.getCreateTableQuery());
             db.execSQL(TagDbRepo.getCreateTableQuery());
+            db.execSQL(IdeasTagRelationshipRepo.getCreateTableQuery());
             Log.i("DB","Tables created");
         }catch(SQLException e){
             Log.i("DB","Error Creating Ideas table");
