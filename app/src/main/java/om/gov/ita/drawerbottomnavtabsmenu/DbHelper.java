@@ -11,7 +11,7 @@ import android.util.Log;
  */
 public class DbHelper extends SQLiteOpenHelper {
     final static private String DB_NAME = "project_allocation.sqlite";
-    final static private int DB_VERSION = 2;
+    final static private int DB_VERSION = 4;
 
     private static DbHelper instance;
 
@@ -47,7 +47,7 @@ public class DbHelper extends SQLiteOpenHelper {
             db.execSQL(IdeasTagRelationshipRepo.getCreateTableQuery());
             Log.i("DB","Tables created");
         }catch(SQLException e){
-            Log.i("DB","Error Creating Ideas table");
+            Log.i("DB","Error Creating table");
             Log.i("DB", e.getMessage());
         }
     }

@@ -19,25 +19,41 @@ public class CreateProposalDialogActivity extends BaseDialogActivity {
 
     private EditText titleEditText;
     private EditText descriptionEditText;
+    private EditText tagsEditText;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         titleEditText = (EditText) findViewById(R.id.et_project_title);
         descriptionEditText = (EditText) findViewById(R.id.et_project_description);
+        tagsEditText = (EditText) findViewById(R.id.et_project_tags);
     }
 
     @Override
     void dialogueAction(MenuItem item) {
         Log.i("menuItem",item.getTitle().toString());
+
+        //Data into variables
         String title = titleEditText.getText().toString();
         String author = "Sabri K";
         String description = descriptionEditText.getText().toString();
         long dateTime = Calendar.getInstance().getTimeInMillis();
         String url = "yellow.docx";
+        String tags = tagsEditText.getText().toString();
         Proposal proposal = new Proposal(title,author,description,dateTime,url,false);
+
+        //instantiate repo
         IdeasDbRepo ideasDbRepo = new IdeasDbRepo(getApplicationContext());
-        ideasDbRepo.insert(proposal);
+        TagDbRepo tagDbRepo = new TagDbRepo(getApplicationContext());
+        IdeasTagRelationshipRepo ideasTagRelationshipRepo =
+                new IdeasTagRelationshipRepo(getApplicationContext());
+
+        //Insert data
+        String ideaId = String.valueOf(ideasDbRepo.insert(proposal));
+        String tagId = String.valueOf(tagDbRepo.insert(tags));
+        ideasTagRelationshipRepo.insert(ideaId,tagId);
+
+        //finish the job
         setResult(Activity.RESULT_OK);
         finish();
     }

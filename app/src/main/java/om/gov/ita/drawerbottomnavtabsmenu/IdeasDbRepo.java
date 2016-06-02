@@ -34,7 +34,7 @@ public class IdeasDbRepo {
                 IDEA_BODY_URL_COL + " text)";
     }
 
-    public void insert(Proposal proposal) {
+    public long insert(Proposal proposal) {
 
         SQLiteDatabase db = DbManager.getInstance(context).open();
         ContentValues values = new ContentValues();
@@ -45,8 +45,9 @@ public class IdeasDbRepo {
         values.put(IDEA_BODY_URL_COL, proposal.getUrl());
 
         // Inserting Row
-        db.insert(IdeasDbRepo.IDEA_TABLE_NAME, IDEA_ID_COL, values);
+        long insertedId = db.insert(IdeasDbRepo.IDEA_TABLE_NAME, IDEA_ID_COL, values);
         DbManager.getInstance(context).close();
 
+        return insertedId;
     }
 }

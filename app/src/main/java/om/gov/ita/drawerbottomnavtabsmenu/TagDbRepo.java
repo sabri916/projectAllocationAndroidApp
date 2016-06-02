@@ -26,15 +26,15 @@ public class TagDbRepo {
                 TAG_TEXT_COL + " text)";
     }
 
-    public void insert(String tag) {
+    public long insert(String tag) {
 
         SQLiteDatabase db = DbManager.getInstance(context).open();
         ContentValues values = new ContentValues();
         values.put(TAG_TEXT_COL, tag);
 
         // Inserting Row
-        db.insert(IdeasDbRepo.IDEA_TABLE_NAME, TAG_ID_COL, values);
+        long insertedId = db.insert(TAGS_TABLE_NAME, TAG_ID_COL, values);
         DbManager.getInstance(context).close();
-
+        return insertedId;
     }
 }

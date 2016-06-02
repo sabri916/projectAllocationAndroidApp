@@ -22,13 +22,13 @@ public class IdeasTagRelationshipRepo {
 
     public static String getCreateTableQuery(){
         return "CREATE table " + IDEA_TAG_TABLE_NAME +
-                "(" + IDEA_ID_COL + "integer, " +
+                "(" + IDEA_ID_COL + " integer, " +
                 TAG_ID_COL + " text, " +
                 "FOREIGN KEY(" + IDEA_ID_COL +
-                ") REFERENCES " + IdeasDbRepo.IDEA_TABLE_NAME + "(" + IdeasDbRepo.IDEA_ID_COL +
+                ") REFERENCES " + IdeasDbRepo.IDEA_TABLE_NAME + "(" + IdeasDbRepo.IDEA_ID_COL + "), " +
                 "FOREIGN KEY(" + TAG_ID_COL +
                 ") REFERENCES " + TagDbRepo.TAGS_TABLE_NAME + "(" + TagDbRepo.TAG_ID_COL +
-                ")";
+                "))";
     }
 
     public void insert(String ideaId, String TagId){
