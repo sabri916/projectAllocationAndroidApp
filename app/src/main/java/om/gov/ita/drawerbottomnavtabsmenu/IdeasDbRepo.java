@@ -1,6 +1,5 @@
 package om.gov.ita.drawerbottomnavtabsmenu;
 
-import android.app.Application;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -14,12 +13,12 @@ public class IdeasDbRepo {
 
     //Ideas Table
     final static public String IDEA_TABLE_NAME = "ideas";
-    final static public String IDEA_ID = "id";
-    public static final String IDEA_TITLE = "title";
-    public static final String IDEA_AUTHOR = "author";
-    public static final String IDEA_DESCRIPTION = "description";
-    public static final String IDEA_SUBMISSION_DATETIME = "submission_date_time";
-    public static final String IDEA_BODY_URL = "body_url";
+    final static public String IDEA_ID_COL = "id";
+    public static final String IDEA_TITLE_COL = "title";
+    public static final String IDEA_AUTHOR_COL = "author";
+    public static final String IDEA_DESCRIPTION_COL = "description";
+    public static final String IDEA_SUBMISSION_DATETIME_COL = "submission_date_time";
+    public static final String IDEA_BODY_URL_COL = "body_url";
 
     public IdeasDbRepo(Context context){
         this.context = context;
@@ -27,26 +26,26 @@ public class IdeasDbRepo {
 
     public static String getCreateTableQuery(){
         return "CREATE table " + IDEA_TABLE_NAME +
-                "(" +  IDEA_ID + " integer primary key autoincrement, "+
-                IDEA_TITLE + " text , " +
-                IDEA_AUTHOR + " integer , " +
-                IDEA_DESCRIPTION + " text , " +
-                IDEA_SUBMISSION_DATETIME + " numeric , " +
-                IDEA_BODY_URL + " text)";
+                "(" + IDEA_ID_COL + " integer primary key autoincrement, "+
+                IDEA_TITLE_COL + " text , " +
+                IDEA_AUTHOR_COL + " integer , " +
+                IDEA_DESCRIPTION_COL + " text , " +
+                IDEA_SUBMISSION_DATETIME_COL + " numeric , " +
+                IDEA_BODY_URL_COL + " text)";
     }
 
     public void insert(Proposal proposal) {
 
         SQLiteDatabase db = DbManager.getInstance(context).open();
         ContentValues values = new ContentValues();
-        values.put(IDEA_TITLE, proposal.getTitle());
-        values.put(IDEA_AUTHOR, proposal.getAuthor());
-        values.put(IDEA_DESCRIPTION, proposal.getDescription());
-        values.put(IDEA_SUBMISSION_DATETIME, proposal.getDateTime());
-        values.put(IDEA_BODY_URL, proposal.getUrl());
+        values.put(IDEA_TITLE_COL, proposal.getTitle());
+        values.put(IDEA_AUTHOR_COL, proposal.getAuthor());
+        values.put(IDEA_DESCRIPTION_COL, proposal.getDescription());
+        values.put(IDEA_SUBMISSION_DATETIME_COL, proposal.getDateTime());
+        values.put(IDEA_BODY_URL_COL, proposal.getUrl());
 
         // Inserting Row
-        db.insert(IdeasDbRepo.IDEA_TABLE_NAME, IDEA_ID, values);
+        db.insert(IdeasDbRepo.IDEA_TABLE_NAME, IDEA_ID_COL, values);
         DbManager.getInstance(context).close();
 
     }
