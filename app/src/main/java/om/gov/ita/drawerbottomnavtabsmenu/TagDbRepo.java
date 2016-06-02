@@ -12,7 +12,7 @@ public class TagDbRepo {
     private Context context;
 
     //Tag Table
-    final static public String TAGS_TABLE_NAME = "ideas";
+    final static public String TAGS_TABLE_NAME = "tags";
     final static public String TAG_ID_COL = "id";
     public static final String TAG_TEXT_COL = "title";
 
