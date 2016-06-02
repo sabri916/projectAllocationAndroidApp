@@ -11,9 +11,9 @@ import android.util.Log;
  */
 public class DbHelper extends SQLiteOpenHelper {
     final static private String DB_NAME = "project_allocation.sqlite";
-    final static private int DB_VERSION = 1;
+    final static private int DB_VERSION = 2;
 
-    private static DbHelper instsance;
+    private static DbHelper instance;
 
     public Context context;
 
@@ -23,26 +23,32 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     public static DbHelper getInstance(Context context){
-        if(instsance == null){
-            instsance = new DbHelper(context);
-            return instsance;
+        if(instance == null){
+            instance = new DbHelper(context);
+            return instance;
         }
-        return instsance;
+        return instance;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        try {
-            db.execSQL(IdeasDbRepo.getCreateTableQuery());
-        }catch(SQLException e){
-            Log.i("DB","Error Creating Ideas table");
-            Log.i("DB", e.getMessage());
-        }
+        dbDestroyer(db);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        dbDestroyer(db);
+    }
 
+    public void dbDestroyer(SQLiteDatabase db){
+        try {
+            db.execSQL(IdeasDbRepo.getCreateTableQuery());
+            db.execSQL(TagDbRepo.getCreateTableQuery());
+            Log.i("DB","Tables created");
+        }catch(SQLException e){
+            Log.i("DB","Error Creating Ideas table");
+            Log.i("DB", e.getMessage());
+        }
     }
 
 }
