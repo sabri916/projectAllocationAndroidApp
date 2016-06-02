@@ -1,5 +1,6 @@
 package om.gov.ita.drawerbottomnavtabsmenu;
 
+import android.app.Activity;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
@@ -37,6 +38,8 @@ public class CreateProposalDialogActivity extends BaseDialogActivity {
         Proposal proposal = new Proposal(title,author,description,dateTime,url,false);
         IdeasDbRepo ideasDbRepo = new IdeasDbRepo(getApplicationContext());
         ideasDbRepo.insert(proposal);
+        setResult(Activity.RESULT_OK);
+        finish();
     }
 
     @Override
