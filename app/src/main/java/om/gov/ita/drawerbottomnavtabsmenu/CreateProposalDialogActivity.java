@@ -11,6 +11,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 
 import java.util.Calendar;
@@ -19,14 +21,23 @@ public class CreateProposalDialogActivity extends BaseDialogActivity {
 
     private EditText titleEditText;
     private EditText descriptionEditText;
-    private EditText tagsEditText;
+    //private EditText tagsEditText;
+    private AutoCompleteTextView tagsEditText;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         titleEditText = (EditText) findViewById(R.id.et_project_title);
         descriptionEditText = (EditText) findViewById(R.id.et_project_description);
-        tagsEditText = (EditText) findViewById(R.id.et_project_tags);
+//        tagsEditText = (EditText) findViewById(R.id.et_project_tags);
+        tagsEditText = (AutoCompleteTextView) findViewById(R.id.et_project_tags);
+
+        //Autocomplete Stuff
+
+        String[] tagList = {"Belgium", "France", "Italy", "Germany", "Spain"};
+        ArrayAdapter<String> autoCompleteAdapter = new ArrayAdapter<String>(getBaseContext(),android.R.layout.simple_dropdown_item_1line,tagList);
+        tagsEditText.setAdapter(autoCompleteAdapter);
+
     }
 
     @Override
