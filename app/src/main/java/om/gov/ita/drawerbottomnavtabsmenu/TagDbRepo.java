@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v4.content.res.TypedArrayUtils;
 
 import java.util.ArrayList;
 
@@ -39,6 +40,20 @@ public class TagDbRepo {
         long insertedId = db.insert(TAGS_TABLE_NAME, TAG_ID_COL, values);
         DbManager.getInstance(context).close();
         return insertedId;
+    }
+
+    public long[] insert(String[] tags) {
+
+        SQLiteDatabase db = DbManager.getInstance(context).open();
+        long[] idArray = new long[tags.length];
+
+        for(int i = 0 ; i < tags.length; i++){
+            ContentValues values = new ContentValues();
+            values.put(TAG_TEXT_COL, tags[i]);
+            idArray[i] = db.insert(TAGS_TABLE_NAME, TAG_ID_COL, values);
+        }
+        DbManager.getInstance(context).close();
+        return idArray;
     }
 
     public ArrayList<String> getAllTags(){

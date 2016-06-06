@@ -40,4 +40,16 @@ public class IdeasTagRelationshipRepo {
         db.insert(IDEA_TAG_TABLE_NAME, null, values);
         DbManager.getInstance(context).close();
     }
+
+    public void insert(String ideaId, long[] TagId){
+        SQLiteDatabase db = DbManager.getInstance(context).open();
+
+        for(long i: TagId) {
+            ContentValues values = new ContentValues();
+            values.put(IDEA_ID_COL, ideaId);
+            values.put(TAG_ID_COL, i);
+            db.insert(IDEA_TAG_TABLE_NAME, null, values);
+        }
+        DbManager.getInstance(context).close();
+    }
 }

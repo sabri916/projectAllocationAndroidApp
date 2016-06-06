@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/et_project_description"
             android:id="@+id/et_project_tags"
-            android:hint="Tags"/>
+            android:hint="Comma Separated Tags"/>
 
         <Button
             android:layout_width="wrap_content"

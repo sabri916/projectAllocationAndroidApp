@@ -32,7 +32,6 @@ public class CreateProposalDialogActivity extends BaseDialogActivity {
         tagsEditText = (AutoCompleteTextView) findViewById(R.id.et_project_tags);
 
         //Autocomplete Stuff
-
         ArrayList<String> tagList = new TagDbRepo(getBaseContext()).getAllTags();
         ArrayAdapter<String> autoCompleteAdapter = new ArrayAdapter<String>(getBaseContext(),android.R.layout.simple_dropdown_item_1line,tagList);
         tagsEditText.setAdapter(autoCompleteAdapter);
@@ -50,6 +49,11 @@ public class CreateProposalDialogActivity extends BaseDialogActivity {
         long dateTime = Calendar.getInstance().getTimeInMillis();
         String url = "yellow.docx";
         String tags = tagsEditText.getText().toString();
+        String[] tagArray = tags.split("\\s*,\\s*");
+        for(String s: tagArray){
+            s = s.trim();
+            Log.i("tags",s);
+        }
         Proposal proposal = new Proposal(title,author,description,dateTime,url,false);
 
         //instantiate repo
@@ -60,8 +64,8 @@ public class CreateProposalDialogActivity extends BaseDialogActivity {
 
         //Insert data
         String ideaId = String.valueOf(ideasDbRepo.insert(proposal));
-        String tagId = String.valueOf(tagDbRepo.insert(tags));
-        ideasTagRelationshipRepo.insert(ideaId,tagId);
+        long[] tagIds = tagDbRepo.insert(tagArray);
+        ideasTagRelationshipRepo.insert(ideaId,tagIds);
 
         //finish the job
         setResult(Activity.RESULT_OK);
