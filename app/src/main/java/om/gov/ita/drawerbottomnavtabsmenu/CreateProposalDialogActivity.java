@@ -15,13 +15,13 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class CreateProposalDialogActivity extends BaseDialogActivity {
 
     private EditText titleEditText;
     private EditText descriptionEditText;
-    //private EditText tagsEditText;
     private AutoCompleteTextView tagsEditText;
 
     @Override
@@ -29,12 +29,11 @@ public class CreateProposalDialogActivity extends BaseDialogActivity {
         super.onCreate(savedInstanceState);
         titleEditText = (EditText) findViewById(R.id.et_project_title);
         descriptionEditText = (EditText) findViewById(R.id.et_project_description);
-//        tagsEditText = (EditText) findViewById(R.id.et_project_tags);
         tagsEditText = (AutoCompleteTextView) findViewById(R.id.et_project_tags);
 
         //Autocomplete Stuff
 
-        String[] tagList = {"Belgium", "France", "Italy", "Germany", "Spain"};
+        ArrayList<String> tagList = new TagDbRepo(getBaseContext()).getAllTags();
         ArrayAdapter<String> autoCompleteAdapter = new ArrayAdapter<String>(getBaseContext(),android.R.layout.simple_dropdown_item_1line,tagList);
         tagsEditText.setAdapter(autoCompleteAdapter);
 

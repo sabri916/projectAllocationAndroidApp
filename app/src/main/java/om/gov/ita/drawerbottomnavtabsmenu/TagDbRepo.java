@@ -2,7 +2,10 @@ package om.gov.ita.drawerbottomnavtabsmenu;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import java.util.ArrayList;
 
 /**
  * Created by training-4 on 6/2/16.
@@ -36,5 +39,21 @@ public class TagDbRepo {
         long insertedId = db.insert(TAGS_TABLE_NAME, TAG_ID_COL, values);
         DbManager.getInstance(context).close();
         return insertedId;
+    }
+
+    public ArrayList<String> getAllTags(){
+        SQLiteDatabase db = DbManager.getInstance(context).open();
+        String[] columnArray = {TAG_TEXT_COL};
+        Cursor cursor = db.query(TAGS_TABLE_NAME,columnArray,null,null,null,null,TAG_TEXT_COL);
+
+        ArrayList<String> tagList = new ArrayList<String>();
+
+        cursor.moveToFirst();
+        do{
+            tagList.add(cursor.getString(cursor.getColumnIndex(TAG_TEXT_COL)));
+        }
+        while(cursor.moveToNext());
+        DbManager.getInstance(context).close();
+        return tagList;
     }
 }
