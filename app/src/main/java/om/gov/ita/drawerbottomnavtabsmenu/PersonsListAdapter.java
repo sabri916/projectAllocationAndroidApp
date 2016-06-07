@@ -26,7 +26,7 @@ public class PersonsListAdapter extends RecyclerView.Adapter<PersonsListAdapter.
     @Override
     public PersonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View rootView = inflater.inflate(R.layout.person_card,parent,false);
+        View rootView = inflater.inflate(R.layout.card_person,parent,false);
         return new PersonViewHolder(rootView);
     }
 

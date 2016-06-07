@@ -1,0 +1,94 @@
+<android.support.v7.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardElevation="2dp"
+    app:cardCornerRadius="2dp"
+    android:layout_marginTop="8dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_profile_about_title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:text="Bio" />
+
+        <include
+            layout="@layout/item_divider"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_profile_name_title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:text="Name"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_profile_name_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:text="Mikado Ryugamine"/>
+
+        <include
+            layout="@layout/item_divider"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_profile_gender_title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:text="Gender"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_profile_gender_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:text="Male"/>
+
+        <include
+            layout="@layout/item_divider"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_profile_speciality_title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:text="Speciality" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_profile_speciality_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:text="Rocket Science"/>
+
+        <include
+            layout="@layout/item_divider"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_profile_bio_title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:text="Bio"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_profile_bio_content"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:text="I have worked in marketing, communications, and PR for over 10 years. I am the Chief Wordsmith at Wordly: a copywriting and content marketing agency that works predominantly with WordPress powered websites." />
+
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>

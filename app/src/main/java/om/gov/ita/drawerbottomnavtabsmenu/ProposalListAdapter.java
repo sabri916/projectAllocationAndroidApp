@@ -26,7 +26,7 @@ public class ProposalListAdapter extends RecyclerView.Adapter<ProposalListAdapte
     @Override
     public ProposalViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View rootView = inflater.inflate(R.layout.proposal_card,parent,false);
+        View rootView = inflater.inflate(R.layout.card_idea,parent,false);
         return new ProposalViewHolder(rootView);
     }
 
