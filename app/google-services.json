@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "291051387781",
+    "firebase_url": "https://project-allocation-project.firebaseio.com",
+    "project_id": "project-allocation-project",
+    "storage_bucket": "project-allocation-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:291051387781:android:6b32cdc0bcc1f071",
+        "android_client_info": {
+          "package_name": "om.gov.ita.drawerbottomnavtabsmenu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "291051387781-2vbkd22tanbo51jd29roi5pfk4mjhj1u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDo4H9nNmeHhE1H4cR3jPNKDv3XxkU0KRE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
