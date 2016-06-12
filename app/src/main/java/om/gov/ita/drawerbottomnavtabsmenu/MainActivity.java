@@ -21,7 +21,7 @@ import android.widget.ImageView;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnMenuTabClickListener;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseFirebaseAuthenticationActivity {
 
     private BottomBar bottomBar;
 
@@ -110,6 +110,12 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void notLoggedInAction() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 
     @Override
