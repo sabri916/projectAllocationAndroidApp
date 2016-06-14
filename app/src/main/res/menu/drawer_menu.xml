@@ -20,4 +20,13 @@
         </item>
     </group>
 
+    <group android:title="Logout">
+        <item
+            android:title="Logout"
+            android:id="@+id/drawer_manu_logout"
+            android:icon="@android:drawable/ic_delete"
+            >
+        </item>
+    </group>
+
 </menu>

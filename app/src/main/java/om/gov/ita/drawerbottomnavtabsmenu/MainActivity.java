@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnMenuTabClickListener;
 
@@ -58,6 +59,19 @@ public class MainActivity extends BaseFirebaseAuthenticationActivity {
                 Log.i("nav_header","profile photo clicked");
                 Intent intent = new Intent(MainActivity.this,ProfileActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                switch(item.getItemId()){
+                    case R.id.drawer_manu_logout:
+                        FirebaseAuth.getInstance().signOut();
+                }
+
+
+                return true;
             }
         });
 
