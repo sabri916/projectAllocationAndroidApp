@@ -14,12 +14,19 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegistrationActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
+    private FirebaseUser newFirebaseUser;
 
+    private DatabaseReference dbRef;
+
+    private EditText nameEditText;
+    private EditText specialityEditText;
     private EditText emailEditText;
     private EditText passwordEditText;
     private Button registerButton;
@@ -29,6 +36,8 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
+        nameEditText = (EditText) findViewById(R.id.et_name);
+        specialityEditText = (EditText) findViewById(R.id.et_speciality);
         emailEditText = (EditText) findViewById(R.id.et_email);
         passwordEditText = (EditText) findViewById(R.id.et_password);
 
@@ -51,15 +60,37 @@ public class RegistrationActivity extends AppCompatActivity {
             public void onClick(View v) {
                 firebaseAuth.createUserWithEmailAndPassword(emailEditText.getText().toString(),
                         passwordEditText.getText().toString()).addOnCompleteListener(RegistrationActivity.this, new OnCompleteListener<AuthResult>() {
+
+                    //if user not created successfully, give message. else, create user profile.
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(!task.isSuccessful()){
-                            Toast.makeText(RegistrationActivity.this, "Registration Failed!!!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegistrationActivity.this, "Registration Failed D= !!!", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            dbRef = FirebaseDatabase.getInstance().getReference("users");
+                            Person person = createPerson();
+                            if(firebaseAuth.getCurrentUser()!=null) {
+                                dbRef.child(firebaseAuth.getCurrentUser().getUid()).setValue(person);
+                            }
                         }
                     }
                 });
             }
         });
+    }
+
+    /**
+     * creates Person object to push to firebase
+     * @return
+     */
+    private Person createPerson(){
+        String name = nameEditText.getText().toString();
+        String speciality = specialityEditText.getText().toString();
+        String email = emailEditText.getText().toString();
+        Person person = new Person(name,speciality);
+        person.setEmail(email);
+        return person;
     }
 
     @Override

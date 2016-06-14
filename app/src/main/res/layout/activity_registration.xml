@@ -12,12 +12,29 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:ems="10"
+        android:id="@+id/et_name"
+        android:layout_alignParentTop="true"
+        android:hint="Name"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_name"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/et_speciality"
+        android:hint="Speciality"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_speciality"
         android:inputType="textEmailAddress"
         android:ems="10"
         android:id="@+id/et_email"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
         android:hint="Email"/>
+
 
     <EditText
         android:layout_width="match_parent"
@@ -26,8 +43,8 @@
         android:ems="10"
         android:id="@+id/et_password"
         android:hint="Password"
-        android:layout_below="@+id/et_email"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/et_email"/>
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
