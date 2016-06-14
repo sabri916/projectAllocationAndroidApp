@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -21,7 +22,6 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
-    private FirebaseUser newFirebaseUser;
 
     private DatabaseReference dbRef;
 
@@ -70,8 +70,12 @@ public class RegistrationActivity extends AppCompatActivity {
                         else{
                             dbRef = FirebaseDatabase.getInstance().getReference("users");
                             Person person = createPerson();
-                            if(firebaseAuth.getCurrentUser()!=null) {
+                            FirebaseUser newUser = firebaseAuth.getCurrentUser();
+                            if(newUser!=null) {
                                 dbRef.child(firebaseAuth.getCurrentUser().getUid()).setValue(person);
+                                UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
+                                        .setDisplayName(person.getName()).build();
+                                newUser.updateProfile(profileUpdate);
                             }
                         }
                     }
