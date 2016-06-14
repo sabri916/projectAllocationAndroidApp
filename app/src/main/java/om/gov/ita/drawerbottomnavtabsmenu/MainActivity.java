@@ -82,8 +82,9 @@ public class MainActivity extends BaseFirebaseAuthenticationActivity {
         });
 
         TextView headerNameTextView = (TextView) headerView.findViewById(R.id.tv_drawer_full_name);
-        headerNameTextView.setText(firebaseAuth.getCurrentUser().getDisplayName());
-
+        if(firebaseAuth.getCurrentUser()!=null) {
+            headerNameTextView.setText(firebaseAuth.getCurrentUser().getDisplayName());
+        }
 
         //toolbar
         mainToolbar = (Toolbar) findViewById(R.id.toolbar_main);

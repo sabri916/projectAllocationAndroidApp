@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/tv_profile_about_title"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:text="Bio" />
+            android:text="About" />
 
         <include
             layout="@layout/item_divider"/>
