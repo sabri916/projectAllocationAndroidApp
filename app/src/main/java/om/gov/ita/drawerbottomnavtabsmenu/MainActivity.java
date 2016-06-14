@@ -17,10 +17,14 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnMenuTabClickListener;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends BaseFirebaseAuthenticationActivity {
 
@@ -33,7 +37,6 @@ public class MainActivity extends BaseFirebaseAuthenticationActivity {
     private FragmentTransaction fragmentTransaction;
     private NavigationView navigationView;
     private CoordinatorLayout coordinatorLayout;
-    private ImageView profilePhotoImageView;
 
     private ProposalsListFragment proposalsListFragment;
     private PeopleTabbedListFragment peopleTabbedListFragment;
@@ -48,20 +51,11 @@ public class MainActivity extends BaseFirebaseAuthenticationActivity {
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator_layout_main_fragment_container);
 
         //drawer
+
+        //rest of the drawer - header view below
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
-        View headerView = navigationView.getHeaderView(0);
-        profilePhotoImageView = (ImageView) headerView.findViewById(R.id.profile_photo);
-        profilePhotoImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("nav_header","profile photo clicked");
-                Intent intent = new Intent(MainActivity.this,ProfileActivity.class);
-                startActivity(intent);
-            }
-        });
-
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
@@ -74,6 +68,22 @@ public class MainActivity extends BaseFirebaseAuthenticationActivity {
                 return true;
             }
         });
+
+        //headerView
+        View headerView = navigationView.getHeaderView(0);
+        ImageView profilePhotoImageView = (ImageView) headerView.findViewById(R.id.profile_photo);
+        profilePhotoImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("nav_header","profile photo clicked");
+                Intent intent = new Intent(MainActivity.this,ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        TextView headerNameTextView = (TextView) headerView.findViewById(R.id.tv_drawer_full_name);
+        headerNameTextView.setText(firebaseAuth.getCurrentUser().getDisplayName());
+
 
         //toolbar
         mainToolbar = (Toolbar) findViewById(R.id.toolbar_main);

@@ -14,7 +14,7 @@ public class Person {
     private String bio;
     private String avatarUrl;
     private String gender;
-    private boolean available;
+    private boolean isAvailable;
     private boolean isMentor;
 
     private ArrayList<String> interests;
@@ -100,11 +100,11 @@ public class Person {
     }
 
     public boolean isAvailable() {
-        return available;
+        return isAvailable;
     }
 
     public void setAvailable(boolean available) {
-        this.available = available;
+        this.isAvailable = available;
     }
 
     public ArrayList<String> getInterests() {

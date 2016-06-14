@@ -15,7 +15,6 @@ public abstract class BaseFirebaseAuthenticationActivity extends AppCompatActivi
 
     protected FirebaseAuth firebaseAuth;
     protected FirebaseAuth.AuthStateListener firebaseAuthListener;
-    protected FirebaseUser firebaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +27,6 @@ public abstract class BaseFirebaseAuthenticationActivity extends AppCompatActivi
                 FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                 if(firebaseUser == null){
                     notLoggedInAction();
-                }
-                else{
-                    BaseFirebaseAuthenticationActivity.this.firebaseUser = firebaseUser;
                 }
             }
         };
@@ -48,10 +44,6 @@ public abstract class BaseFirebaseAuthenticationActivity extends AppCompatActivi
         if(firebaseAuthListener != null){
             firebaseAuth.removeAuthStateListener(firebaseAuthListener);
         }
-    }
-
-    protected FirebaseUser getFirebaseUser() {
-        return firebaseUser;
     }
 
     /*Action if user is not logged in*/

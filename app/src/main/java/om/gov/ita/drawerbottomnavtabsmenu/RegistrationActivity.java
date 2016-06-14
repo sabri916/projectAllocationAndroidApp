@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -71,10 +72,11 @@ public class RegistrationActivity extends AppCompatActivity {
                             dbRef = FirebaseDatabase.getInstance().getReference("users");
                             Person person = createPerson();
                             FirebaseUser newUser = firebaseAuth.getCurrentUser();
-                            if(newUser!=null) {
+                            if(newUser!=null){
                                 dbRef.child(firebaseAuth.getCurrentUser().getUid()).setValue(person);
                                 UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
                                         .setDisplayName(person.getName()).build();
+                                Log.i("registration", "displayName = " + person.getName());
                                 newUser.updateProfile(profileUpdate);
                             }
                         }
