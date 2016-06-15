@@ -27,10 +27,19 @@ public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
 
     private DatabaseReference dbRef;
 
+    //About Card
     private TextView nameTextView;
     private TextView genderTextView;
     private TextView specialityTextView;
     private TextView bioTextView;
+
+    //Skills Card
+    private TextView interestsTextview;
+    private TextView skillsTextView;
+
+    //Contact Details Card
+    private TextView phoneTextView;
+    private TextView emailTextView;
 
     private Person person;
 
@@ -80,5 +89,20 @@ public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
 
         bioTextView = (TextView) findViewById(R.id.tv_profile_bio_content);
         bioTextView.setText(person.getBio());
+
+        //Skill Card
+        interestsTextview = (TextView) findViewById(R.id.tv_profile_interests_content);
+        interestsTextview.setText("dummy interests");
+
+        skillsTextView = (TextView) findViewById(R.id.tv_profile_skills_content);
+        skillsTextView.setText("dummy skills");
+
+
+        //Contact Details Card
+        phoneTextView = (TextView) findViewById(R.id.tv_profile_phone_number);
+        phoneTextView.setText(person.getPhoneNumber());
+
+        emailTextView = (TextView) findViewById(R.id.tv_profile_email);
+        emailTextView.setText(person.getEmail());
     }
 }
