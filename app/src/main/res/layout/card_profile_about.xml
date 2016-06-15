@@ -14,12 +14,27 @@
         android:padding="16dp"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tv_profile_about_title"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:text="About" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/tv_profile_about_title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:text="About" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/iv_profile_about_edit"
+                android:src="@drawable/ic_edit_black_24dp"
+                android:clickable="true"/>
+
+        </LinearLayout>
 
         <include
             layout="@layout/item_divider"/>
@@ -62,7 +77,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tv_profile_speciality_title"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:text="Speciality" />
 
         <TextView
@@ -79,7 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tv_profile_bio_title"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:text="Bio"/>
 
         <TextView

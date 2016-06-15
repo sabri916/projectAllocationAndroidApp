@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.renderscript.Sampler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,16 +30,19 @@ public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
     private DatabaseReference dbRef;
 
     //About Card
+    private ImageView editAboutImageView;
     private TextView nameTextView;
     private TextView genderTextView;
     private TextView specialityTextView;
     private TextView bioTextView;
 
     //Skills Card
+    private ImageView editSkillsImageView;
     private TextView interestsTextview;
     private TextView skillsTextView;
 
     //Contact Details Card
+    private ImageView editContactsImageView;
     private TextView phoneTextView;
     private TextView emailTextView;
 
@@ -66,8 +71,35 @@ public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
                 Log.i("profile","failure Error: " + databaseError.toString());
             }
         });
-
         Log.i("profile","End of listener");
+
+        //Edit Buttons
+        editAboutImageView = (ImageView) findViewById(R.id.iv_profile_about_edit);
+        editAboutImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("profile","About Edit button pressed");
+                Snackbar.make(findViewById(R.id.coordinator_layout_profile_main),"Edit About",Snackbar.LENGTH_SHORT).show();
+            }
+        });
+
+        editSkillsImageView = (ImageView) findViewById(R.id.iv_profile_skills_edit);
+        editSkillsImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("profile","Skills Edit button pressed");
+                Snackbar.make(findViewById(R.id.coordinator_layout_profile_main),"Edit Skills",Snackbar.LENGTH_SHORT).show();
+            }
+        });
+
+        editContactsImageView = (ImageView) findViewById(R.id.iv_profile_contacts_edit);
+        editContactsImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("profile","Skills Edit button pressed");
+                Snackbar.make(findViewById(R.id.coordinator_layout_profile_main),"Edit Skills",Snackbar.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

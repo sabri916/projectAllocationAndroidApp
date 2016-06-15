@@ -14,12 +14,28 @@
         android:padding="16dp"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:id="@+id/tv_profile_contact_title"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:text="Contact Details" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/iv_profile_contacts_edit"
+                android:src="@drawable/ic_edit_black_24dp"
+                android:clickable="true"/>
+
+        </LinearLayout>
+
 
         <include
             layout="@layout/item_divider"/>
