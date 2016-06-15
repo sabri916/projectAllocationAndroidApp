@@ -27,6 +27,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
 
+    final int EDIT_ABOUT_REQUEST_CODE = 0;
+
     private DatabaseReference dbRef;
 
     //About Card
@@ -80,6 +82,8 @@ public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
             public void onClick(View v) {
                 Log.i("profile","About Edit button pressed");
                 Snackbar.make(findViewById(R.id.coordinator_layout_profile_main),"Edit About",Snackbar.LENGTH_SHORT).show();
+                Intent intent = new Intent(ProfileActivity.this,EditProfileAboutActivity.class);
+                startActivityForResult(intent,EDIT_ABOUT_REQUEST_CODE);
             }
         });
 

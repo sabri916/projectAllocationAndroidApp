@@ -1,14 +1,19 @@
 package om.gov.ita.drawerbottomnavtabsmenu;
 
+import android.content.Intent;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 
-public abstract class BaseDialogActivity extends AppCompatActivity {
+public abstract class BaseDialogActivity extends BaseFirebaseAuthenticationActivity {
 
     private Toolbar createProposalToolbar;
 
@@ -17,8 +22,8 @@ public abstract class BaseDialogActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResourceId());
         createProposalToolbar = (Toolbar) findViewById(R.id.toolbar_main);
-        createProposalToolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);
         setSupportActionBar(createProposalToolbar);
+        createProposalToolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);
     }
 
 
@@ -37,6 +42,12 @@ public abstract class BaseDialogActivity extends AppCompatActivity {
             dialogueAction(item);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void notLoggedInAction(){
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 
     /* Action of the save Button*/
