@@ -27,7 +27,10 @@
         <activity
             android:name=".RegistrationActivity"
             android:parentActivityName=".LoginActivity" />
-        <activity android:name=".EditProfileAboutActivity"
+        <activity
+            android:name=".EditProfileAboutActivity"
+            android:parentActivityName=".ProfileActivity" />
+        <activity android:name=".EditProfileContactsActivity"
             android:parentActivityName=".ProfileActivity"/>
     </application>
 

@@ -27,12 +27,17 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
 
-    final int EDIT_ABOUT_REQUEST_CODE = 0;
+    private static final int EDIT_ABOUT_REQUEST_CODE = 0;
+    private static final int EDIT_CONTACTS_REQUEST_CODE = 1;
 
+    //about card
     final static String NAME_EXTRA_ID = "name";
     final static String GENDER_EXTRA_ID = "gender";
     final static String SPECIALISATION_EXTRA_ID = "specialisation";
     final static String BIO_EXTRA_ID = "bio";
+
+    //Contacts card
+    final static String PHONE_EXTRA_ID = "phone";
 
     private DatabaseReference dbRef;
 
@@ -112,7 +117,10 @@ public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
             @Override
             public void onClick(View v) {
                 Log.i("profile","Skills Edit button pressed");
-                Snackbar.make(findViewById(R.id.coordinator_layout_profile_main),"Edit Skills",Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(findViewById(R.id.coordinator_layout_profile_main), "Edit About", Snackbar.LENGTH_SHORT).show();
+                Intent intent = new Intent(ProfileActivity.this, EditProfileContactsActivity.class);
+                intent.putExtra(PHONE_EXTRA_ID, person.getPhoneNumber());
+                startActivityForResult(intent,EDIT_CONTACTS_REQUEST_CODE);
             }
         });
     }
@@ -155,6 +163,9 @@ public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        dbRef = FirebaseDatabase.getInstance().getReference("users").child(uid);
+
         if(requestCode == EDIT_ABOUT_REQUEST_CODE){
             if(resultCode == RESULT_OK){
                 //unpack intent
@@ -169,8 +180,24 @@ public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
                 person.setSpeciality(specialisation);
                 person.setBio(bio);
 
-                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                dbRef = FirebaseDatabase.getInstance().getReference("users").child(uid);
+                dbRef.setValue(person).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(!task.isSuccessful()){
+                            Snackbar.make(findViewById(R.id.coordinator_layout_profile_main),"Profile details cannot be updated",Snackbar.LENGTH_LONG).show();
+                        }
+                        else{
+                            Snackbar.make(findViewById(R.id.coordinator_layout_profile_main),"User details updated ='D",Snackbar.LENGTH_LONG).show();
+                        }
+                    }
+                });
+            }
+        }
+        else if(requestCode == EDIT_CONTACTS_REQUEST_CODE){
+            if(resultCode==RESULT_OK){
+                String phone = intent.getStringExtra(PHONE_EXTRA_ID);
+
+                person.setPhoneNumber(phone);
                 dbRef.setValue(person).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
