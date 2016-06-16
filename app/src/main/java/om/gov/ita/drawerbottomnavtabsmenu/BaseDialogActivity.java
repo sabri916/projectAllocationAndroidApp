@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public abstract class BaseDialogActivity extends BaseFirebaseAuthenticationActivity {
+
+    final static String TAG = "BaseDialogActivity";
 
     private Toolbar createProposalToolbar;
 
@@ -24,6 +27,13 @@ public abstract class BaseDialogActivity extends BaseFirebaseAuthenticationActiv
         createProposalToolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(createProposalToolbar);
         createProposalToolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);
+        createProposalToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG,"on back click");
+                finish();
+            }
+        });
     }
 
 

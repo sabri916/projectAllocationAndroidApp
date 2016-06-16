@@ -29,6 +29,11 @@ public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
 
     final int EDIT_ABOUT_REQUEST_CODE = 0;
 
+    final static String NAME_EXTRA_ID = "name";
+    final static String GENDER_EXTRA_ID = "gender";
+    final static String SPECIALISATION_EXTRA_ID = "specialisation";
+    final static String BIO_EXTRA_ID = "bio";
+
     private DatabaseReference dbRef;
 
     //About Card
@@ -80,10 +85,16 @@ public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
         editAboutImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("profile","About Edit button pressed");
-                Snackbar.make(findViewById(R.id.coordinator_layout_profile_main),"Edit About",Snackbar.LENGTH_SHORT).show();
-                Intent intent = new Intent(ProfileActivity.this,EditProfileAboutActivity.class);
-                startActivityForResult(intent,EDIT_ABOUT_REQUEST_CODE);
+                if(person != null) {
+                    Log.i("profile", "About Edit button pressed");
+                    Snackbar.make(findViewById(R.id.coordinator_layout_profile_main), "Edit About", Snackbar.LENGTH_SHORT).show();
+                    Intent intent = new Intent(ProfileActivity.this, EditProfileAboutActivity.class);
+                    intent.putExtra(NAME_EXTRA_ID, person.getName());
+                    intent.putExtra(GENDER_EXTRA_ID, person.getGender());
+                    intent.putExtra(SPECIALISATION_EXTRA_ID, person.getSpeciality());
+                    intent.putExtra(BIO_EXTRA_ID, person.getBio());
+                    startActivityForResult(intent, EDIT_ABOUT_REQUEST_CODE);
+                }
             }
         });
 
@@ -140,5 +151,38 @@ public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
 
         emailTextView = (TextView) findViewById(R.id.tv_profile_email);
         emailTextView.setText(person.getEmail());
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        if(requestCode == EDIT_ABOUT_REQUEST_CODE){
+            if(resultCode == RESULT_OK){
+                //unpack intent
+                String name = intent.getStringExtra(NAME_EXTRA_ID);
+                String gender = intent.getStringExtra(GENDER_EXTRA_ID);
+                String specialisation = intent.getStringExtra(SPECIALISATION_EXTRA_ID);
+                String bio = intent.getStringExtra(BIO_EXTRA_ID);
+
+                //update person object
+                person.setName(name);
+                person.setGender(gender);
+                person.setSpeciality(specialisation);
+                person.setBio(bio);
+
+                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                dbRef = FirebaseDatabase.getInstance().getReference("users").child(uid);
+                dbRef.setValue(person).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(!task.isSuccessful()){
+                            Snackbar.make(findViewById(R.id.coordinator_layout_profile_main),"Profile details cannot be updated",Snackbar.LENGTH_LONG).show();
+                        }
+                        else{
+                            Snackbar.make(findViewById(R.id.coordinator_layout_profile_main),"User details updated ='D",Snackbar.LENGTH_LONG).show();
+                        }
+                    }
+                });
+            }
+        }
     }
 }

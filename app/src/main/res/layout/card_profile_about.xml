@@ -101,7 +101,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tv_profile_bio_content"
-            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:text="I have worked in marketing, communications, and PR for over 10 years. I am the Chief Wordsmith at Wordly: a copywriting and content marketing agency that works predominantly with WordPress powered websites." />
 
 
