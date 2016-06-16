@@ -25,18 +25,26 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
 
     private static final int EDIT_ABOUT_REQUEST_CODE = 0;
     private static final int EDIT_CONTACTS_REQUEST_CODE = 1;
+    private static final int EDIT_SKILLS_REQUEST_CODE = 2;
 
-    //about card
+    //about card extra
     final static String NAME_EXTRA_ID = "name";
     final static String GENDER_EXTRA_ID = "gender";
     final static String SPECIALISATION_EXTRA_ID = "specialisation";
     final static String BIO_EXTRA_ID = "bio";
 
-    //Contacts card
+    //skill card extra
+    static final String INTEREST_EXTRA_ID = "interests";
+    static final String SKILLS_EXTRA_ID = "skills";
+
+    //Contacts card extra
     final static String PHONE_EXTRA_ID = "phone";
 
     private DatabaseReference dbRef;
@@ -85,7 +93,7 @@ public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
         });
         Log.i("profile","End of listener");
 
-        //Edit Buttons
+        //Edit About Card
         editAboutImageView = (ImageView) findViewById(R.id.iv_profile_about_edit);
         editAboutImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,15 +111,29 @@ public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
             }
         });
 
+        //edit Skills Card
         editSkillsImageView = (ImageView) findViewById(R.id.iv_profile_skills_edit);
         editSkillsImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i("profile","Skills Edit button pressed");
                 Snackbar.make(findViewById(R.id.coordinator_layout_profile_main),"Edit Skills",Snackbar.LENGTH_SHORT).show();
+
+                //pack Skills and interests into ArrayList
+                String interests = interestsTextview.getText().toString();
+                String[] interestsArray = interests.split("\n");
+
+                String skills = skillsTextView.getText().toString();
+                String[] skillsArray = skills.split("\n");
+
+                Intent intent = new Intent(ProfileActivity.this, EditProfileSkillsActivity.class);
+                intent.putExtra(INTEREST_EXTRA_ID,interestsArray);
+                intent.putExtra(SKILLS_EXTRA_ID,skillsArray);
+                startActivityForResult(intent, EDIT_SKILLS_REQUEST_CODE);
             }
         });
 
+        //edit Contacts
         editContactsImageView = (ImageView) findViewById(R.id.iv_profile_contacts_edit);
         editContactsImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,10 +169,10 @@ public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
 
         //Skill Card
         interestsTextview = (TextView) findViewById(R.id.tv_profile_interests_content);
-        interestsTextview.setText("dummy interests");
+        interestsTextview.setText("dummy interests \n dummy interest\ndummyinterest");
 
         skillsTextView = (TextView) findViewById(R.id.tv_profile_skills_content);
-        skillsTextView.setText("dummy skills");
+        skillsTextView.setText("dummy skill \n dummy skill \n dummy skill");
 
 
         //Contact Details Card
