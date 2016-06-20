@@ -214,8 +214,9 @@ public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
         }else if(requestCode == EDIT_INTERESTS_REQUEST_CODE){
             if(resultCode == RESULT_OK){
                 String interests[] = intent.getStringArrayExtra(INTEREST_EXTRA_ID);
-                ArrayList interestsArrayList = (ArrayList) Arrays.asList(interests);
-                person.setInterests(null);
+                ArrayList<String> interestsArrayList = new ArrayList<String>(Arrays.asList(interests));
+
+                person.setInterests(interestsArrayList);
                 updateFirebasePerson(person, "Interests updated","Interests could not be updated D=");
             }
         }
@@ -228,10 +229,10 @@ public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(!task.isSuccessful()){
-                    Snackbar.make(findViewById(R.id.coordinator_layout_profile_main),successMessage,Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(findViewById(R.id.coordinator_layout_profile_main),failMessage,Snackbar.LENGTH_LONG).show();
                 }
                 else{
-                    Snackbar.make(findViewById(R.id.coordinator_layout_profile_main),failMessage,Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(findViewById(R.id.coordinator_layout_profile_main),successMessage,Snackbar.LENGTH_LONG).show();
                 }
             }
         });

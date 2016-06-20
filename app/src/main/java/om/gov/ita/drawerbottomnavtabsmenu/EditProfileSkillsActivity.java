@@ -37,7 +37,7 @@ public class EditProfileSkillsActivity extends BaseDialogActivity {
         final Intent intent = getIntent();
 
         String[] interestsArray = intent.getStringArrayExtra(ProfileActivity.INTEREST_EXTRA_ID);
-        interestsArrayList = new ArrayList<String>( Arrays.asList(interestsArray));
+        interestsArrayList = new ArrayList<String>(Arrays.asList(interestsArray));
         for (String i : interestsArray) {
             Log.i(TAG, i);
         }
@@ -72,7 +72,9 @@ public class EditProfileSkillsActivity extends BaseDialogActivity {
     @Override
     void dialogueAction(MenuItem item) {
         Intent intent = new Intent();
-        intent.putExtra(ProfileActivity.INTEREST_EXTRA_ID,adapter.getSkills().toArray());
+        String[] interestArray = new String[adapter.getSkills().size()];
+        interestArray = adapter.getSkills().toArray(interestArray);
+        intent.putExtra(ProfileActivity.INTEREST_EXTRA_ID,interestArray);
         setResult(Activity.RESULT_OK,intent);
         finish();
     }
