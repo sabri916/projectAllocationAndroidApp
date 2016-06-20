@@ -27,12 +27,14 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
 
     private static final int EDIT_ABOUT_REQUEST_CODE = 0;
     private static final int EDIT_CONTACTS_REQUEST_CODE = 1;
-    private static final int EDIT_SKILLS_REQUEST_CODE = 2;
+    private static final int EDIT_INTERESTS_REQUEST_CODE = 2;
+    private static final int EDIT_SKILLS_REQUEST_CODE = 3;
 
     //about card extra
     final static String NAME_EXTRA_ID = "name";
@@ -111,7 +113,7 @@ public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
             }
         });
 
-        //edit Skills Card
+        //edit Interests - Skills Card
         editSkillsImageView = (ImageView) findViewById(R.id.iv_profile_skills_edit);
         editSkillsImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,7 +131,7 @@ public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
                 Intent intent = new Intent(ProfileActivity.this, EditProfileSkillsActivity.class);
                 intent.putExtra(INTEREST_EXTRA_ID,interestsArray);
                 intent.putExtra(SKILLS_EXTRA_ID,skillsArray);
-                startActivityForResult(intent, EDIT_SKILLS_REQUEST_CODE);
+                startActivityForResult(intent, EDIT_INTERESTS_REQUEST_CODE);
             }
         });
 
@@ -185,9 +187,6 @@ public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        dbRef = FirebaseDatabase.getInstance().getReference("users").child(uid);
-
         if(requestCode == EDIT_ABOUT_REQUEST_CODE){
             if(resultCode == RESULT_OK){
                 //unpack intent
@@ -202,17 +201,7 @@ public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
                 person.setSpeciality(specialisation);
                 person.setBio(bio);
 
-                dbRef.setValue(person).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(!task.isSuccessful()){
-                            Snackbar.make(findViewById(R.id.coordinator_layout_profile_main),"Profile details cannot be updated",Snackbar.LENGTH_LONG).show();
-                        }
-                        else{
-                            Snackbar.make(findViewById(R.id.coordinator_layout_profile_main),"User details updated ='D",Snackbar.LENGTH_LONG).show();
-                        }
-                    }
-                });
+                updateFirebasePerson(person,"Profile details cannot be updated","User details updated ='D");
             }
         }
         else if(requestCode == EDIT_CONTACTS_REQUEST_CODE){
@@ -220,18 +209,31 @@ public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
                 String phone = intent.getStringExtra(PHONE_EXTRA_ID);
 
                 person.setPhoneNumber(phone);
-                dbRef.setValue(person).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(!task.isSuccessful()){
-                            Snackbar.make(findViewById(R.id.coordinator_layout_profile_main),"Profile details cannot be updated",Snackbar.LENGTH_LONG).show();
-                        }
-                        else{
-                            Snackbar.make(findViewById(R.id.coordinator_layout_profile_main),"User details updated ='D",Snackbar.LENGTH_LONG).show();
-                        }
-                    }
-                });
+                updateFirebasePerson(person,"Profile details cannot be updated","User details updated ='D");
+            }
+        }else if(requestCode == EDIT_INTERESTS_REQUEST_CODE){
+            if(resultCode == RESULT_OK){
+                String interests[] = intent.getStringArrayExtra(INTEREST_EXTRA_ID);
+                ArrayList interestsArrayList = (ArrayList) Arrays.asList(interests);
+                person.setInterests(null);
+                updateFirebasePerson(person, "Interests updated","Interests could not be updated D=");
             }
         }
+    }
+
+    private void updateFirebasePerson(Person person, final String successMessage, final String failMessage){
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        dbRef = FirebaseDatabase.getInstance().getReference("users").child(uid);
+        dbRef.setValue(person).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(!task.isSuccessful()){
+                    Snackbar.make(findViewById(R.id.coordinator_layout_profile_main),successMessage,Snackbar.LENGTH_LONG).show();
+                }
+                else{
+                    Snackbar.make(findViewById(R.id.coordinator_layout_profile_main),failMessage,Snackbar.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 }

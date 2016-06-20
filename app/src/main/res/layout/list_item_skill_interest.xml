@@ -25,12 +25,13 @@
         <ImageView
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:id="@+id/iv_person_list_avatar"
+            android:id="@+id/iv_skill_delete_icon"
             android:src="@drawable/ic_delete_black_24dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
+            android:clickable="true"
             />
 
     </RelativeLayout>
