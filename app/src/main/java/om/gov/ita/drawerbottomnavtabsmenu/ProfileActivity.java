@@ -28,6 +28,9 @@ public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
     private static final int EDIT_INTERESTS_REQUEST_CODE = 2;
     private static final int EDIT_SKILLS_REQUEST_CODE = 3;
 
+    //Current user extra
+    final static String CURRENT_USER_EXTRA_ID = "currentUser";
+
     //about card extra
     final static String NAME_EXTRA_ID = "name";
     final static String GENDER_EXTRA_ID = "gender";
@@ -62,6 +65,7 @@ public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
     private TextView emailTextView;
 
     private Person person;
+    private boolean isEditable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +74,14 @@ public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
 
         Log.i("profile","activity started");
 
+        Intent intent = getIntent();
+        String intentUid = intent.getStringExtra(CURRENT_USER_EXTRA_ID);
         String uid = firebaseAuth.getCurrentUser().getUid();
+        if(uid.equals(intentUid)){
+            isEditable = true;
+        }else{
+            isEditable = false;
+        }
         dbRef = FirebaseDatabase.getInstance().getReference("users").child(uid);
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -172,6 +183,9 @@ public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
         bioTextView = (TextView) findViewById(R.id.tv_profile_bio_content);
         bioTextView.setText(person.getBio());
 
+        if(isEditable)
+            editAboutImageView.setVisibility(View.VISIBLE);
+
         //Skill Card
         //interests
         interestsTextview = (TextView) findViewById(R.id.tv_profile_interests_content);
@@ -184,6 +198,8 @@ public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
             String outputString = interestStringBuilder.toString().trim();
             interestsTextview.setText(outputString);
         }
+        if(isEditable)
+            editInterestsImageView.setVisibility(View.VISIBLE);
 
         //skills
         skillsTextView = (TextView) findViewById(R.id.tv_profile_skills_content);
@@ -197,6 +213,8 @@ public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
             String outputString = skillStringBuilder.toString().trim();
             skillsTextView.setText(outputString);
         }
+        if(isEditable)
+            editSkillsImageView.setVisibility(View.VISIBLE);
 
 
         //Contact Details Card
@@ -205,6 +223,9 @@ public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
 
         emailTextView = (TextView) findViewById(R.id.tv_profile_email);
         emailTextView.setText(person.getEmail());
+
+        if(isEditable)
+            editContactsImageView.setVisibility(View.VISIBLE);
     }
 
     @Override

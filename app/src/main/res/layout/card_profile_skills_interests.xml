@@ -56,6 +56,7 @@
                 android:id="@+id/iv_profile_interests_edit"
                 android:src="@drawable/ic_edit_black_24dp"
                 android:clickable="true"
+                android:visibility="invisible"
                 android:layout_alignParentEnd="true"/>
         </RelativeLayout>
 
@@ -86,6 +87,7 @@
                 android:id="@+id/iv_profile_skills_edit"
                 android:src="@drawable/ic_edit_black_24dp"
                 android:clickable="true"
+                android:visibility="invisible"
                 android:layout_alignParentEnd="true"/>
         </RelativeLayout>
 

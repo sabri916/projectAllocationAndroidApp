@@ -77,6 +77,8 @@ public class MainActivity extends BaseFirebaseAuthenticationActivity {
             public void onClick(View v) {
                 Log.i("nav_header","profile photo clicked");
                 Intent intent = new Intent(MainActivity.this,ProfileActivity.class);
+                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                intent.putExtra(ProfileActivity.CURRENT_USER_EXTRA_ID,uid);
                 startActivity(intent);
             }
         });
