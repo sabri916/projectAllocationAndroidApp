@@ -171,7 +171,12 @@ public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
 
         //Skill Card
         interestsTextview = (TextView) findViewById(R.id.tv_profile_interests_content);
-        interestsTextview.setText("dummy interests \n dummy interest\ndummyinterest");
+        ArrayList<String> interestList = person.getInterests();
+        StringBuilder interestString = new StringBuilder();
+        for(String i : interestList){
+            interestString.append(i + "\n");
+        }
+        interestsTextview.setText(interestString);
 
         skillsTextView = (TextView) findViewById(R.id.tv_profile_skills_content);
         skillsTextView.setText("dummy skill \n dummy skill \n dummy skill");
