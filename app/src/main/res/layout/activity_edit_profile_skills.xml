@@ -24,13 +24,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:id="@+id/et_skill_edit"
-            android:hint="What skills do you have?"
+            android:hint="Show off your special skills."
             />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btn_add_skill"
-            android:text="Add Skill"/>
+            android:text="Add"/>
     </LinearLayout>
 
 </LinearLayout>

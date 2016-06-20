@@ -18,6 +18,8 @@ public class EditProfileSkillsActivity extends BaseDialogActivity {
     private ArrayList<String> skillsArrayList;
     private SkillListAdapter adapter;
 
+    private boolean isSkillEdit;
+
     private ListView skillsListView;
     private EditText skillsEditText;
     private Button addSkillButton;
@@ -25,8 +27,19 @@ public class EditProfileSkillsActivity extends BaseDialogActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //This block will extract both skills and interests from the intent
+        // since only one list can exist at a time, the list will eventually be stored in
+        //skillsArray
         final Intent intent = getIntent();
-        String[] skillsArray = intent.getStringArrayExtra(ProfileActivity.INTEREST_EXTRA_ID);
+        String[] interestsArray = intent.getStringArrayExtra(ProfileActivity.INTERESTS_EXTRA_ID);
+        isSkillEdit = true;
+        String[] skillsArray = intent.getStringArrayExtra(ProfileActivity.SKILLS_EXTRA_ID);
+        if(skillsArray == null){
+            skillsArray = interestsArray;
+            isSkillEdit = false;
+        }
+
         skillsArrayList = new ArrayList<String>(Arrays.asList(skillsArray));
         for (String i : skillsArray) {
             Log.i(TAG, i);
@@ -38,6 +51,10 @@ public class EditProfileSkillsActivity extends BaseDialogActivity {
         skillsListView.setAdapter(adapter);
 
         skillsEditText = (EditText) findViewById(R.id.et_skill_edit);
+        if(interestsArray != null){
+            skillsEditText.setHint("What are your interests?");
+        }
+
 
         addSkillButton = (Button) findViewById(R.id.btn_add_skill);
         addSkillButton.setOnClickListener(new View.OnClickListener() {
@@ -64,7 +81,13 @@ public class EditProfileSkillsActivity extends BaseDialogActivity {
         Intent intent = new Intent();
         String[] skillArray = new String[adapter.getSkills().size()];
         skillArray = adapter.getSkills().toArray(skillArray);
-        intent.putExtra(ProfileActivity.INTEREST_EXTRA_ID,skillArray);
+        if(isSkillEdit){
+            intent.putExtra(ProfileActivity.SKILLS_EXTRA_ID,skillArray);
+        }
+        else{
+            intent.putExtra(ProfileActivity.INTERESTS_EXTRA_ID,skillArray);
+        }
+
         setResult(Activity.RESULT_OK,intent);
         finish();
     }

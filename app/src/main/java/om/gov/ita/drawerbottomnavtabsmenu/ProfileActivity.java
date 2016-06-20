@@ -35,7 +35,7 @@ public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
     final static String BIO_EXTRA_ID = "bio";
 
     //skill card extra
-    static final String INTEREST_EXTRA_ID = "interests";
+    static final String INTERESTS_EXTRA_ID = "interests";
     static final String SKILLS_EXTRA_ID = "skills";
 
     //Contacts card extra
@@ -51,6 +51,7 @@ public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
     private TextView bioTextView;
 
     //Skills Card
+    private ImageView editInterestsImageView;
     private ImageView editSkillsImageView;
     private TextView interestsTextview;
     private TextView skillsTextView;
@@ -106,24 +107,34 @@ public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
         });
 
         //edit Interests - Skills Card
+        editInterestsImageView = (ImageView) findViewById(R.id.iv_profile_interests_edit);
+        editInterestsImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("profile","Interests Edit button pressed");
+                interestsTextview = (TextView) findViewById(R.id.tv_profile_interests_content);
+                String interests = interestsTextview.getText().toString();
+                String[] interestsArray = interests.split("\n");
+
+                Intent intent = new Intent(ProfileActivity.this, EditProfileSkillsActivity.class);
+                intent.putExtra(INTERESTS_EXTRA_ID,interestsArray);
+                startActivityForResult(intent, EDIT_INTERESTS_REQUEST_CODE);
+            }
+        });
+
         editSkillsImageView = (ImageView) findViewById(R.id.iv_profile_skills_edit);
         editSkillsImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i("profile","Skills Edit button pressed");
-                Snackbar.make(findViewById(R.id.coordinator_layout_profile_main),"Edit Skills",Snackbar.LENGTH_SHORT).show();
-
-                //pack Skills and interests into ArrayList
-                String interests = interestsTextview.getText().toString();
-                String[] interestsArray = interests.split("\n");
+                skillsTextView = (TextView) findViewById(R.id.tv_profile_skills_content);
 
                 String skills = skillsTextView.getText().toString();
                 String[] skillsArray = skills.split("\n");
 
                 Intent intent = new Intent(ProfileActivity.this, EditProfileSkillsActivity.class);
-                intent.putExtra(INTEREST_EXTRA_ID,interestsArray);
                 intent.putExtra(SKILLS_EXTRA_ID,skillsArray);
-                startActivityForResult(intent, EDIT_INTERESTS_REQUEST_CODE);
+                startActivityForResult(intent, EDIT_SKILLS_REQUEST_CODE);
             }
         });
 
@@ -162,16 +173,30 @@ public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
         bioTextView.setText(person.getBio());
 
         //Skill Card
+        //interests
         interestsTextview = (TextView) findViewById(R.id.tv_profile_interests_content);
         ArrayList<String> interestList = person.getInterests();
-        StringBuilder interestString = new StringBuilder();
-        for(String i : interestList){
-            interestString.append(i + "\n");
+        if(interestList != null) {
+            StringBuilder interestStringBuilder = new StringBuilder();
+            for (String i : interestList) {
+                interestStringBuilder.append(i + "\n");
+            }
+            String outputString = interestStringBuilder.toString().trim();
+            interestsTextview.setText(outputString);
         }
-        interestsTextview.setText(interestString);
 
+        //skills
         skillsTextView = (TextView) findViewById(R.id.tv_profile_skills_content);
-        skillsTextView.setText("dummy skill \n dummy skill \n dummy skill");
+        ArrayList<String> skillsList = person.getSkills();
+        if(skillsList != null) {
+            StringBuilder skillStringBuilder = new StringBuilder();
+            for (String i : skillsList) {
+                skillStringBuilder.append(i + "\n");
+                Log.i("profile", i);
+            }
+            String outputString = skillStringBuilder.toString().trim();
+            skillsTextView.setText(outputString);
+        }
 
 
         //Contact Details Card
@@ -198,7 +223,7 @@ public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
                 person.setSpeciality(specialisation);
                 person.setBio(bio);
 
-                updateFirebasePerson(person,"Profile details cannot be updated","User details updated ='D");
+                updateFirebasePerson(person, "User details updated ='D", "Profile details cannot be updated");
             }
         }
         else if(requestCode == EDIT_CONTACTS_REQUEST_CODE){
@@ -206,15 +231,23 @@ public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
                 String phone = intent.getStringExtra(PHONE_EXTRA_ID);
 
                 person.setPhoneNumber(phone);
-                updateFirebasePerson(person,"Profile details cannot be updated","User details updated ='D");
+                updateFirebasePerson(person, "User details updated ='D", "Profile details cannot be updated");
             }
         }else if(requestCode == EDIT_INTERESTS_REQUEST_CODE){
             if(resultCode == RESULT_OK){
-                String interests[] = intent.getStringArrayExtra(INTEREST_EXTRA_ID);
+                String interests[] = intent.getStringArrayExtra(INTERESTS_EXTRA_ID);
                 ArrayList<String> interestsArrayList = new ArrayList<String>(Arrays.asList(interests));
 
                 person.setInterests(interestsArrayList);
                 updateFirebasePerson(person, "Interests updated","Interests could not be updated D=");
+            }
+        }else if(requestCode == EDIT_SKILLS_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                String skills[] = intent.getStringArrayExtra(SKILLS_EXTRA_ID);
+                ArrayList<String> skillsArrayList = new ArrayList<String>(Arrays.asList(skills));
+
+                person.setSkills(skillsArrayList);
+                updateFirebasePerson(person, "Interests updated", "Interests could not be updated D=");
             }
         }
     }
