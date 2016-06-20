@@ -23,6 +23,14 @@ public class PersonsListAdapter extends RecyclerView.Adapter<PersonsListAdapter.
         this.personArrayList = personArrayList;
     }
 
+    public ArrayList<Person> getPersonArrayList() {
+        return personArrayList;
+    }
+
+    public void setPersonArrayList(ArrayList<Person> personArrayList) {
+        this.personArrayList = personArrayList;
+    }
+
     @Override
     public PersonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
