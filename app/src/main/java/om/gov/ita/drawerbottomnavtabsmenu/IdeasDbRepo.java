@@ -39,9 +39,8 @@ public class IdeasDbRepo {
         SQLiteDatabase db = DbManager.getInstance(context).open();
         ContentValues values = new ContentValues();
         values.put(IDEA_TITLE_COL, proposal.getTitle());
-        values.put(IDEA_AUTHOR_COL, proposal.getAuthor());
+        values.put(IDEA_AUTHOR_COL, proposal.getAuthorUid());
         values.put(IDEA_DESCRIPTION_COL, proposal.getDescription());
-        values.put(IDEA_SUBMISSION_DATETIME_COL, proposal.getDateTime());
         values.put(IDEA_BODY_URL_COL, proposal.getUrl());
 
         // Inserting Row

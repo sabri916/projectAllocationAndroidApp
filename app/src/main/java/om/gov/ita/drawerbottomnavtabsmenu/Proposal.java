@@ -1,24 +1,32 @@
 package om.gov.ita.drawerbottomnavtabsmenu;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.util.Map;
 
 /**
  * Created by training-4 on 5/17/16.
  */
 public class Proposal {
+    private String ideaKey;
     private String title;
-    private String author;
+    private String authorUid;
     private String description;
-    private long dateTime;
+    private Map dateTime;
     private String url;
     private boolean isFavourite;
 
-    public long getDateTime() {
+    public String getIdeaKey() {
+        return ideaKey;
+    }
+
+    public void setIdeaKey(String ideaKey) {
+        this.ideaKey = ideaKey;
+    }
+
+    public Map getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(long dateTime) {
+    public void setDateTime(Map dateTime) {
         this.dateTime = dateTime;
     }
 
@@ -30,32 +38,34 @@ public class Proposal {
         this.url = url;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getAuthorUid() {
+        return authorUid;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setAuthorUid(String authorUid) {
+        this.authorUid = authorUid;
     }
 
-    public Proposal(String title, String author, boolean isFavourite) {
+    public Proposal(){}
+
+    public Proposal(String title, String authorUid) {
         this.title = title;
-        this.author = author;
+        this.authorUid = authorUid;
         this.isFavourite = isFavourite;
     }
 
-    public Proposal(String title, String author, String description, long dateTime, String url, boolean isFavourite) {
+    public Proposal(String title, String authorUid, String description, Map dateTime, String url) {
         this.title = title;
-        this.author = author;
+        this.authorUid = authorUid;
         this.description = description;
         this.dateTime = dateTime;
         this.url = url;
         this.isFavourite = isFavourite;
     }
 
-    public Proposal(String title, String author, String description, boolean isFavourite) {
+    public Proposal(String title, String authorUid, String description, boolean isFavourite) {
         this.title = title;
-        this.author = author;
+        this.authorUid = authorUid;
         this.description = description;
         this.isFavourite = isFavourite;
     }

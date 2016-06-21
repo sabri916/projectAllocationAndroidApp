@@ -34,7 +34,7 @@ public class ProposalListAdapter extends RecyclerView.Adapter<ProposalListAdapte
     public void onBindViewHolder(ProposalViewHolder holder, int position) {
         Proposal proposal = proposalArrayList.get(position);
         holder.getTitleTextView().setText(proposal.getTitle());
-        holder.getAuthorTextView().setText(proposal.getAuthor());
+        holder.getAuthorTextView().setText(proposal.getAuthorUid());
         holder.getDescriptionTextView().setText(proposal.getDescription());
 
         if(proposal.isFavourite()){

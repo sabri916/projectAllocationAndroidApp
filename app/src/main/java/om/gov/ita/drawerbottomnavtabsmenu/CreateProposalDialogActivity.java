@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.PersistableBundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -16,8 +18,19 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Map;
 
 public class CreateProposalDialogActivity extends BaseDialogActivity {
 
@@ -31,12 +44,6 @@ public class CreateProposalDialogActivity extends BaseDialogActivity {
         titleEditText = (EditText) findViewById(R.id.et_project_title);
         descriptionEditText = (EditText) findViewById(R.id.et_project_description);
         tagsEditText = (AutoCompleteTextView) findViewById(R.id.et_project_tags);
-
-        //Autocomplete Stuff
-        ArrayList<String> tagList = new TagDbRepo(getBaseContext()).getAllTags();
-        ArrayAdapter<String> autoCompleteAdapter = new ArrayAdapter<String>(getBaseContext(),android.R.layout.simple_dropdown_item_1line,tagList);
-        tagsEditText.setAdapter(autoCompleteAdapter);
-
     }
 
     @Override
@@ -45,32 +52,57 @@ public class CreateProposalDialogActivity extends BaseDialogActivity {
 
         //Data into variables
         String title = titleEditText.getText().toString();
-        String author = "Sabri K";
+        String authorUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         String description = descriptionEditText.getText().toString();
-        long dateTime = Calendar.getInstance().getTimeInMillis();
-        String url = "yellow.docx";
+        Map dateTime = ServerValue.TIMESTAMP;
+        String url = authorUid + "/ideas/filename.doc";
         String tags = tagsEditText.getText().toString();
         String[] tagArray = tags.split("\\s*,\\s*");
         for(String s: tagArray){
             s = s.trim();
             Log.i("tags",s);
         }
-        Proposal proposal = new Proposal(title,author,description,dateTime,url,false);
 
-        //instantiate repo
-        IdeasDbRepo ideasDbRepo = new IdeasDbRepo(getApplicationContext());
-        TagDbRepo tagDbRepo = new TagDbRepo(getApplicationContext());
-        IdeasTagRelationshipRepo ideasTagRelationshipRepo =
-                new IdeasTagRelationshipRepo(getApplicationContext());
+        final Proposal proposal = new Proposal(title,authorUid,description,dateTime,url);
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        //Insert data
-        String ideaId = String.valueOf(ideasDbRepo.insert(proposal));
-        long[] tagIds = tagDbRepo.insert(tagArray);
-        ideasTagRelationshipRepo.insert(ideaId,tagIds);
+        //Save in ideas node
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("ideas");
+        final String ideaKey = dbRef.push().getKey();
+        proposal.setIdeaKey(ideaKey);
+        dbRef.child(ideaKey).setValue(proposal);
 
-        //finish the job
+        //save ideas within user profile
+        dbRef = FirebaseDatabase.getInstance().getReference("users").child(authorUid);
+        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.i("profile","data read");
+                Person person = dataSnapshot.getValue(Person.class);
+                Log.i("profile","user's Name: " + person.getName());
+                ArrayList<String> ideasArrayList = person.getIdeas();
+                if(ideasArrayList == null) {
+                    ideasArrayList = new ArrayList<String>();
+                }
+                ideasArrayList.add(ideaKey);
+                person.setIdeas(ideasArrayList);
+                updateFirebasePerson(person,"added!!","could not add idea D=");
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.i("profile","failure Error: " + databaseError.toString());
+            }
+        });
         setResult(Activity.RESULT_OK);
         finish();
+    }
+
+    private void updateFirebasePerson(Person person, final String successMessage, final String failMessage){
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("users").child(uid);
+        dbRef.setValue(person);
     }
 
     @Override
