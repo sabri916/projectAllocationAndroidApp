@@ -81,6 +81,7 @@ public class ProfileActivity extends BaseFirebaseAuthenticationActivity {
             isEditable = true;
         }else{
             isEditable = false;
+            uid = intentUid;
         }
         dbRef = FirebaseDatabase.getInstance().getReference("users").child(uid);
         dbRef.addValueEventListener(new ValueEventListener() {

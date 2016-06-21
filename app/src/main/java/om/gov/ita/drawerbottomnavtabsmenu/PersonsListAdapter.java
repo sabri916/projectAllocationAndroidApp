@@ -1,7 +1,10 @@
 package om.gov.ita.drawerbottomnavtabsmenu;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,10 +43,26 @@ public class PersonsListAdapter extends RecyclerView.Adapter<PersonsListAdapter.
 
     @Override
     public void onBindViewHolder(PersonViewHolder holder, int position) {
-        Person person = personArrayList.get(position);
+        final Person person = personArrayList.get(position);
         holder.getAvatarImageView().setImageResource(R.drawable.blank_profile_picture);
         holder.getNameTextView().setText(person.getName());
         holder.getSpecialityTextView().setText(person.getSpeciality());
+
+        //click Action
+        holder.getPersonCardView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context,ProfileActivity.class);
+                intent.putExtra(ProfileActivity.CURRENT_USER_EXTRA_ID,person.getUid());
+                context.startActivity(intent);
+            }
+        });
+        holder.getAvatarImageView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i("PersonListAdapter",person.getUid());
+            }
+        });
     }
 
     @Override
@@ -53,15 +72,21 @@ public class PersonsListAdapter extends RecyclerView.Adapter<PersonsListAdapter.
 
     public class PersonViewHolder extends RecyclerView.ViewHolder {
 
+        private CardView personCardView;
         private TextView nameTextView;
         private TextView specialityTextView;
         private ImageView avatarImageView;
 
         public PersonViewHolder(View itemView) {
             super(itemView);
+            personCardView = (CardView) itemView.findViewById(R.id.cardview_person);
             nameTextView = (TextView) itemView.findViewById(R.id.tv_person_list_name);
             specialityTextView = (TextView) itemView.findViewById(R.id.tv_disciple_list_speciality);
             avatarImageView = (ImageView) itemView.findViewById(R.id.iv_person_list_avatar);
+        }
+
+        public CardView getPersonCardView() {
+            return personCardView;
         }
 
         public TextView getNameTextView() {
