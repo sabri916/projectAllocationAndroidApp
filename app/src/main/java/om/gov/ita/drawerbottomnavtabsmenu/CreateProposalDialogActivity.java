@@ -53,8 +53,9 @@ public class CreateProposalDialogActivity extends BaseDialogActivity {
         //Data into variables
         String title = titleEditText.getText().toString();
         String authorUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String authorName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
         String description = descriptionEditText.getText().toString();
-        Map dateTime = ServerValue.TIMESTAMP;
+        Map dateTimeMap = ServerValue.TIMESTAMP;
         String url = authorUid + "/ideas/filename.doc";
         String tags = tagsEditText.getText().toString();
         String[] tagArray = tags.split("\\s*,\\s*");
@@ -63,7 +64,7 @@ public class CreateProposalDialogActivity extends BaseDialogActivity {
             Log.i("tags",s);
         }
 
-        final Proposal proposal = new Proposal(title,authorUid,description,dateTime,url);
+        final Proposal proposal = new Proposal(title,authorUid,authorName,description,dateTimeMap,url);
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         //Save in ideas node

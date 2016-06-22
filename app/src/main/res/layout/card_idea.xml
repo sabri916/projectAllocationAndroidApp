@@ -46,7 +46,7 @@
                 android:text="Proposal Description Proposal Description Proposal Description Proposal Description Proposal Description Proposal Description Proposal Description Proposal Description Proposal Description "
                 android:id="@+id/tv_proposal_description_card"
                 android:layout_below="@+id/tv_proposal_author_card"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentStart="true" />
         </RelativeLayout>
         <ImageButton
             android:id="@+id/iv_favourite_star"

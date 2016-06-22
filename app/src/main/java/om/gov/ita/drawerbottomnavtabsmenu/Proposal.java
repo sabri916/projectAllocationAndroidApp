@@ -1,5 +1,6 @@
 package om.gov.ita.drawerbottomnavtabsmenu;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -9,10 +10,20 @@ public class Proposal {
     private String ideaKey;
     private String title;
     private String authorUid;
+    private String authorName;
     private String description;
-    private Map dateTime;
+    private Map<String, Object> dateTime;
+    private long dateTimeLong;
     private String url;
     private boolean isFavourite;
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
 
     public String getIdeaKey() {
         return ideaKey;
@@ -22,12 +33,16 @@ public class Proposal {
         this.ideaKey = ideaKey;
     }
 
-    public Map getDateTime() {
+    public Map<String,Object> getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(Map dateTime) {
-        this.dateTime = dateTime;
+    public void setDateTime(long dateTime) {
+        dateTimeLong = dateTime;
+    }
+
+    public long getDateTimeLong() {
+        return dateTimeLong;
     }
 
     public String getUrl() {
@@ -54,9 +69,10 @@ public class Proposal {
         this.isFavourite = isFavourite;
     }
 
-    public Proposal(String title, String authorUid, String description, Map dateTime, String url) {
+    public Proposal(String title, String authorUid, String authorName, String description, Map dateTime, String url) {
         this.title = title;
         this.authorUid = authorUid;
+        this.authorName = authorName;
         this.description = description;
         this.dateTime = dateTime;
         this.url = url;

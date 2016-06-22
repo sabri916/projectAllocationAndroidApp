@@ -23,6 +23,10 @@ public class ProposalListAdapter extends RecyclerView.Adapter<ProposalListAdapte
         this.proposalArrayList = proposalArrayList;
     }
 
+    public void setProposalArrayList(ArrayList<Proposal> proposalArrayList) {
+        this.proposalArrayList = proposalArrayList;
+    }
+
     @Override
     public ProposalViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -34,7 +38,7 @@ public class ProposalListAdapter extends RecyclerView.Adapter<ProposalListAdapte
     public void onBindViewHolder(ProposalViewHolder holder, int position) {
         Proposal proposal = proposalArrayList.get(position);
         holder.getTitleTextView().setText(proposal.getTitle());
-        holder.getAuthorTextView().setText(proposal.getAuthorUid());
+        holder.getAuthorTextView().setText(proposal.getAuthorName());
         holder.getDescriptionTextView().setText(proposal.getDescription());
 
         if(proposal.isFavourite()){
