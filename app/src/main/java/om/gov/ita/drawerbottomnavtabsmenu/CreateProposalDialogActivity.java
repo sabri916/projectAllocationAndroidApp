@@ -1,8 +1,10 @@
 package om.gov.ita.drawerbottomnavtabsmenu;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -16,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,16 +30,27 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Map;
 
 public class CreateProposalDialogActivity extends BaseDialogActivity {
 
+    private static final int PDF_REQUEST_CODE = 1;
+
     private EditText titleEditText;
     private EditText descriptionEditText;
     private AutoCompleteTextView tagsEditText;
+
+    private Button selectFileButton;
+
+    private File file;
+    private String filePath;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,6 +58,15 @@ public class CreateProposalDialogActivity extends BaseDialogActivity {
         titleEditText = (EditText) findViewById(R.id.et_project_title);
         descriptionEditText = (EditText) findViewById(R.id.et_project_description);
         tagsEditText = (AutoCompleteTextView) findViewById(R.id.et_project_tags);
+        selectFileButton = (Button) findViewById(R.id.btn_upload_project_body);
+        selectFileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("application/pdf"); //set mime type as per requirement
+                startActivityForResult(intent,PDF_REQUEST_CODE);
+            }
+        });
     }
 
     @Override
@@ -96,6 +119,12 @@ public class CreateProposalDialogActivity extends BaseDialogActivity {
                 Log.i("profile","failure Error: " + databaseError.toString());
             }
         });
+
+        //Save file into Firebase Storage
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReferenceFromUrl("gs://project-allocation-project.appspot.com/");
+        storageRef.child(uid);
+
         setResult(Activity.RESULT_OK);
         finish();
     }
@@ -114,5 +143,21 @@ public class CreateProposalDialogActivity extends BaseDialogActivity {
     @Override
     void setSaveText(MenuItem menuItem) {
         menuItem.setTitle(R.string.dialogue_create_item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == PDF_REQUEST_CODE && resultCode == RESULT_OK){
+            Uri fileuri = data.getData();
+            filePath = fileuri.getPath();
+            Log.i(TAG,filePath);
+            try{
+                file = new File(new URI(filePath));
+            }catch (Exception e){
+                Log.i(TAG,e.toString());
+            }
+        }
     }
 }
