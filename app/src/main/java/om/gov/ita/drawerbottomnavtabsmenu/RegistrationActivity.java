@@ -70,8 +70,8 @@ public class RegistrationActivity extends AppCompatActivity {
                         }
                         else{
                             dbRef = FirebaseDatabase.getInstance().getReference("users");
-                            Person person = createPerson();
                             FirebaseUser newUser = firebaseAuth.getCurrentUser();
+                            Person person = createPerson(newUser.getUid());
                             if(newUser!=null){
                                 dbRef.child(firebaseAuth.getCurrentUser().getUid()).setValue(person);
                                 UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
@@ -81,7 +81,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             }
                         }
                     }
-                });
+                
             }
         });
     }
@@ -90,12 +90,13 @@ public class RegistrationActivity extends AppCompatActivity {
      * creates Person object to push to firebase
      * @return
      */
-    private Person createPerson(){
+    private Person createPerson(String uid){
         String name = nameEditText.getText().toString();
         String speciality = specialityEditText.getText().toString();
         String email = emailEditText.getText().toString();
         Person person = new Person(name,speciality);
         person.setEmail(email);
+        person.setUid(uid);
         return person;
     }
 
