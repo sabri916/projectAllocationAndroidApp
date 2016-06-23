@@ -48,13 +48,16 @@ public class EditProfileAboutActivity extends BaseDialogActivity {
                 R.array.gender_spinner, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         genderSpinner.setAdapter(adapter);
-        if(gender.equalsIgnoreCase("male")){
-            genderSpinner.setSelection(1);
-        }else if(gender.equalsIgnoreCase("female")){
-            genderSpinner.setSelection(2);
-        }
-        else{
-            genderSpinner.setSelection(0);
+
+
+        if(gender != null) {
+            if (gender.equalsIgnoreCase("male")) {
+                genderSpinner.setSelection(1);
+            } else if (gender.equalsIgnoreCase("female")) {
+                genderSpinner.setSelection(2);
+            } else {
+                genderSpinner.setSelection(0);
+            }
         }
 
         specialityEditText = (EditText) findViewById(R.id.et_speciality_edit);
